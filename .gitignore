@@ -38,12 +38,6 @@ Thumbs.db
 
 # Fichier Visual studio #
 #########################
-.sdf
-.sln
-.opensdf
-.vcxproj
-.vcxproj.filters
-.vs
 *.sdf
 *.sln
 *.opensdf
