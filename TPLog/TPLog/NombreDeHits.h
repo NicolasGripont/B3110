@@ -13,7 +13,7 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes
-
+const int NB_HEURE_PAR_JOUR = 24;
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
@@ -51,7 +51,7 @@ struct NombreDeHits
 
 	NombreDeHits();
 	// Mode d'emploi :
-	//
+	// 
 	// Contrat :
 	//
 
@@ -65,7 +65,8 @@ struct NombreDeHits
 
 protected:
 	//----------------------------------------------------- Méthodes protégées
-
+	int nombreDeHitsReussisParHeure[NB_HEURE_PAR_JOUR] = { 0 };
+	int nombreDeHitsEchouesParHeure[NB_HEURE_PAR_JOUR] = { 0 };
 	//----------------------------------------------------- Attributs protégés
 
 };
