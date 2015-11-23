@@ -1,7 +1,7 @@
 #VARIABLES
 
 MAKEFILE = makefile
-EXE = TPLOG
+EXE = TPLOG.exe
 COMP = g++
 RM = rm
 EDL = g++
