@@ -44,6 +44,12 @@ Thumbs.db
 .vcxproj
 .vcxproj.filters
 .vs
+*.sdf
+*.sln
+*.opensdf
+*.vcxproj
+*.vcxproj.filters
+*.vs
 Debug
 ./TPLog/Debug
 ./TPLog/TPLog/Debug
