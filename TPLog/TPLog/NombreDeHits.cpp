@@ -29,6 +29,40 @@ using namespace std;
 //} //----- Fin de Méthode
 
 
+int NombreDeHits::NombreDeHitsPourUneHeure(int uneHeure, bool UniquementReussi)
+{
+	if (uneHeure >= NB_HEURE_PAR_JOUR)
+	{
+		return -1;
+	}
+	if (UniquementReussi)
+	{
+		return nombreDeHitsReussisParHeure[uneHeure];
+	}
+	else
+	{
+		return nombreDeHitsEchouesParHeure[uneHeure] + nombreDeHitsReussisParHeure[uneHeure];
+	}
+}
+
+int NombreDeHits::NombreDeHitsTotal(bool UniquementReussi)
+{
+	int s = 0;
+	for (int i = 0; i < NB_HEURE_PAR_JOUR; i++)
+	{
+		s += nombreDeHitsReussisParHeure[i];
+	}
+	if (UniquementReussi)
+	{
+		return s;
+	}
+	for (int i = 0; i < NB_HEURE_PAR_JOUR; i++)
+	{
+		s += nombreDeHitsEchouesParHeure[i];
+	}
+	return s;
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 NombreDeHits & NombreDeHits::operator = (const NombreDeHits & unNombreDeHits)
 // Algorithme :

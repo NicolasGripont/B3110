@@ -27,12 +27,13 @@ struct NombreDeHits
 	//----------------------------------------------------------------- PUBLIC
 
 	//----------------------------------------------------- Méthodes publiques
-	// type Méthode ( liste des paramètres );
+	int NombreDeHitsPourUneHeure ( int uneHeure, bool UniquementReussi = true );
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
 
+	int NombreDeHitsTotal(bool UniquementReussi);
 
 	//------------------------------------------------- Surcharge d'opérateurs
 	NombreDeHits & operator = (const NombreDeHits & unNombreDeHits);
