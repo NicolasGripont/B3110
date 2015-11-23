@@ -7,6 +7,7 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 *************************************************************************/
 #include "Utilisateur.h"
 #include "Document.h"
+#include "NombreDeHits.h"
 
 int main()
 {

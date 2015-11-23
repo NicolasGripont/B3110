@@ -1,14 +1,14 @@
 /*************************************************************************
-Document  -  fichier d'en-tête de la classe <Document>
+NombreDeHits  -  fichier d'en-tête de la structure <NombreDeHits>
 -------------------
-début                : 23/11/2015 15:43:24
+début                : 23/11/2015 15:48:12
 copyright            : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
 e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 *************************************************************************/
 
-//---------- Interface de la classe <Document> (fichier Document.h) ------
-#if ! defined ( Document_H )
-#define Document_H
+//---------- Interface de la structure <NombreDeHits> (fichier NombreDeHits.h) ------
+#if ! defined ( NombreDeHits_H )
+#define NombreDeHits_H
 
 //--------------------------------------------------- Interfaces utilisées
 
@@ -17,16 +17,15 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe <Document>
+// Rôle de la structure <NombreDeHits>
 //
 //
 //------------------------------------------------------------------------
 
-class Document
+struct NombreDeHits 
 {
 	//----------------------------------------------------------------- PUBLIC
 
-public:
 	//----------------------------------------------------- Méthodes publiques
 	// type Méthode ( liste des paramètres );
 	// Mode d'emploi :
@@ -36,7 +35,7 @@ public:
 
 
 	//------------------------------------------------- Surcharge d'opérateurs
-	Document & operator = (const Document & unDocument);
+	NombreDeHits & operator = (const NombreDeHits & unNombreDeHits);
 	// Mode d'emploi :
 	//
 	// Contrat :
@@ -44,19 +43,19 @@ public:
 
 
 	//-------------------------------------------- Constructeurs - destructeur
-	Document(const Document & unDocument);
+	NombreDeHits(const NombreDeHits & unNombreDeHits);
 	// Mode d'emploi (constructeur de copie) :
 	//
 	// Contrat :
 	//
 
-	Document();
+	NombreDeHits();
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
 
-	virtual ~Document();
+	virtual ~NombreDeHits();
 	// Mode d'emploi :
 	//
 	// Contrat :
@@ -68,11 +67,11 @@ protected:
 	//----------------------------------------------------- Méthodes protégées
 
 	//----------------------------------------------------- Attributs protégés
-	
+
 };
 
-//--------------------------- Autres définitions dépendantes de <Document>
+//--------------------------- Autres définitions dépendantes de <NombreDeHits>
 
-#endif // Document_H
+#endif // NombreDeHits_H
 
 
