@@ -1,25 +1,25 @@
 #VARIABLES
 
 MAKEFILE = makefile
-EXE = TEST.exe
+EXE = TPLOG.exe
 COMP = g++
 RM = rm
 EDL = g++
 ECHO = echo
-INT = TestLog.h LogParser.h LogLine.h
-REAL = $(INT:.h=.cpp) MainTest.cpp
-OBJ = $(INT:.h=.o) MainTest.o
+INT = LogLine.h LogParser.h
+REAL = $(INT:.h=.cpp) Main.cpp
+OBJ = $(INT:.h=.o) Main.o
 OUTPUT = -o
 RMFLAGS = -f
-CPPFLAGS =-std=c++11 -Wall -O3 #-D TEST #-D MAP
-EDLFLAGS =-g 
+CPPFLAGS =# -D NOMAP
+EDLFLAGS = 
 LIBS = 
 LIBPATH =# -L
 INCPATH =# -I
 CLEAN = clean
 SOS = backup
 BACKUPFILE = backup.sh
-RESSOURCES =
+RESSOURCES = 
 
 
 #RULES
@@ -32,10 +32,10 @@ $(EXE) : $(OBJ)
 	$(ECHO) "Compilation de <$<>"
 	$(COMP) $(CPPFLAGS) $(INCPATH) -c $<
 
-MainTest.o : TestLog.h TestLog.cpp LogParser.h LogParser.cpp LogLine.h LogLine.cpp $(MAKEFILE)
-LogLine.o : LogLine.h $(MAKEFILE)
-LogParser.o : LogParser.h LogLine.h LogLine.cpp $(MAKEFILE)
-TestLog.o : TestLog.h LogParser.h LogParser.cpp LogLine.h LogLine.cpp $(MAKEFILE)
+
+Main.o :
+LogLine.o : LogLine.h
+LogParser.o : LogParser.h LogLine.h LogLine.cpp
 
 $(CLEAN) :
 	$(ECHO) "nettoyage du repertoire..."

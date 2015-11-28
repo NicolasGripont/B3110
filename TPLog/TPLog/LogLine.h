@@ -1,77 +1,110 @@
 /*************************************************************************
 LogLine  -  fichier d'en-tête de la classe <LogLine>
 -------------------
-début                : 27/11/2015 22:29:59
-copyright            : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
-e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
+debut      : 27/11/2015 22:29:59
+copyright  : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
+e-mail     : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 *************************************************************************/
 
 //---------- Interface de la classe <LogLine> (fichier LogLine.h) ------
 #if ! defined ( LogLine_H )
 #define LogLine_H
 
-//--------------------------------------------------- Interfaces utilisées
-
+//--------------------------------------------------- Interfaces utilisees
+#include <iostream>
+using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe <LogLine>
-//
-//
+// Rôle de la structure <LogLine> : Structure permettant de creer un objet
+// regroupant tous les champs d?une ligne de log generee par un serveur
+// Apache. Chaque attribut de la structure correspond un d?une ligne de
+// log.
 //------------------------------------------------------------------------
 
-class LogLine : public Ancetre
+struct LogLine
 {
-	//----------------------------------------------------------------- PUBLIC
+//----------------------------------------------------------------- PUBLIC
 
 public:
-	//----------------------------------------------------- Méthodes publiques
-	// type Méthode ( liste des paramètres );
-	// Mode d'emploi :
+//----------------------------------------------------- Methodes publiques
+
+    void Afficher ( );
+    // Mode d'emploi :
+    // Méthode permettant d'afficher tous les champs de LogLine.
+    //
+    // Contrat : aucun.
+    //
+
+//------------------------------------------------- Surcharge d'operateurs
+    LogLine & operator = ( const LogLine & unLogLine );
+    // Mode d'emploi :
+    // Surcharge de l'operateur egale (=).
+	//
+    // Contrat : aucun.
+	//
+
+
+//-------------------------------------------- Constructeurs - destructeur
+    LogLine ( const LogLine & unLogLine );
+    // Mode d'emploi (constructeur de copie) :
+    // Constructeur de copie.
+	//
+    // Contrat : aucun.
+	//
+
+    LogLine ( );
+    // Mode d'emploi :
+    // Constructeur par defaut. Initailise tous les attributs
+    // (string) à "".
+	//
+    // Contrat : aucun.
+	//
+
+    virtual ~LogLine ( );
+    // Mode d'emploi :
+    // Destructeur.
 	//
 	// Contrat :
 	//
 
+//------------------------------------------------------ Attributs publics
 
-	//------------------------------------------------- Surcharge d'opérateurs
-	LogLine & operator = (const LogLine & unLogLine);
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+    string clientIP;            // Adresse IP du client emetteur de la
+                                // requête.
 
+    string userLogName;         // User Log Name, soit le nom
+                                // d?utilisateur du visiteur.
 
-	//-------------------------------------------- Constructeurs - destructeur
-	LogLine(const LogLine & unLogLine);
-	// Mode d'emploi (constructeur de copie) :
-	//
-	// Contrat :
-	//
+    string authenticatedUser;   // Nom d?utilisateur que l?internaute
+                                // s?est donne lui-même.
 
-	LogLine();
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+    string date;                // Date et Heure de la requête avec GMT.
 
-	virtual ~LogLine();
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+    string actionType;          // Type d?action executee (GET, POST,
+                                // OPTIONS, ?).
 
-	//------------------------------------------------------------------ PRIVE
+    string requestedURL;        // URL demandee, relative à l?URL stockee
+                                // dans referer.
 
-protected:
-	//----------------------------------------------------- Méthodes protégées
+    string httpVersion;         // Version du protocole HTTP.
 
-	//----------------------------------------------------- Attributs protégés
+    string status;              // Code de retour de la reponse du
+                                // serveur.
+
+    string bytesNumber;         // Nombre d'octets de la reponse.
+
+    string referer;             // Adresse sur laquelle le navigateur se
+                                // trouvait lorsqu?il a effectue sa
+                                // requête.
+
+    string navigator;           // Identification du client navigateur.
 
 };
 
-//--------------------------- Autres définitions dépendantes de <LogLine>
+//--------------------------- Autres definitions dependantes de <LogLine>
 
 #endif // LogLine_H
 

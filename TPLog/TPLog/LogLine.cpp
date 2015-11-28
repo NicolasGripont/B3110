@@ -1,18 +1,16 @@
 /*************************************************************************
-LogLine  -  fichier de réalisation de la classe <LogLine>
+LogLine  -  fichier de realisation de la classe <LogLine>
 -------------------
-début                : 27/11/2015 22:30:09
-copyright            : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
-e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
+debut      : 27/11/2015 22:30:09
+copyright  : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
+e-mail     : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 *************************************************************************/
 
-//---------- Réalisation de la classe <LogLine> (fichier LogLine.cpp) --
+//---------- Realisation de la classe <LogLine> (fichier LogLine.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
-#include <iostream>
 
 //------------------------------------------------------ Include personnel
 #include "LogLine.h"
@@ -21,34 +19,68 @@ using namespace std;
 
 //----------------------------------------------------------------- PUBLIC
 
-//----------------------------------------------------- Méthodes publiques
-// type LogLine::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
-
-//------------------------------------------------- Surcharge d'opérateurs
-LogLine & LogLine::operator = (const LogLine & unLogLine)
+//----------------------------------------------------- Methodes publiques
+void  LogLine::Afficher ( )
 // Algorithme :
 //
 {
+    cout << clientIP << endl;
+    cout << userLogName << endl;
+    cout << authenticatedUser << endl;
+    cout << date << endl;
+    cout << actionType << endl;
+    cout << requestedURL << endl;
+    cout << httpVersion << endl;
+    cout << status << endl;
+    cout << bytesNumber <<endl;
+    cout << referer << endl;
+    cout << navigator << endl;
+} //----- Fin de Methode
+
+
+//------------------------------------------------- Surcharge d'operateurs
+LogLine & LogLine::operator = ( const LogLine & unLogLine )
+// Algorithme :
+//
+{
+    clientIP = unLogLine.clientIP;
+    userLogName = unLogLine.userLogName;
+    authenticatedUser = unLogLine.authenticatedUser;
+    date = unLogLine.date;
+    actionType = unLogLine.actionType;
+    requestedURL = unLogLine.requestedURL;
+    httpVersion = unLogLine.httpVersion;
+    status = unLogLine.status;
+    bytesNumber = unLogLine.bytesNumber;
+    referer = unLogLine.referer;
+    navigator = unLogLine.navigator;
+    return *this;
 } //----- Fin de operator =
 
 
-  //-------------------------------------------- Constructeurs - destructeur
-LogLine::LogLine(const LogLine & unLogLine)
+//-------------------------------------------- Constructeurs - destructeur
+LogLine::LogLine ( const LogLine & unLogLine ) :
+    clientIP(unLogLine.clientIP), userLogName(unLogLine.userLogName),
+    authenticatedUser(unLogLine.authenticatedUser), date(unLogLine.date),
+    actionType(unLogLine.actionType),
+    requestedURL(unLogLine.requestedURL),
+    httpVersion(unLogLine.httpVersion),
+    bytesNumber(unLogLine.bytesNumber), status(unLogLine.status),
+    referer(unLogLine.referer), navigator(unLogLine.navigator)
 // Algorithme :
 //
 {
 #ifdef MAP
 	cout << "Appel au constructeur de copie de <LogLine>" << endl;
 #endif
+
 } //----- Fin de LogLine (constructeur de copie)
 
 
-LogLine::LogLine()
+LogLine::LogLine ( ) : clientIP(""), userLogName(""),
+    authenticatedUser(""), date(""), actionType(""), requestedURL(""),
+    httpVersion(""), status(""), bytesNumber(""), referer(""),
+    navigator("")
 // Algorithme :
 //
 {
@@ -58,7 +90,7 @@ LogLine::LogLine()
 } //----- Fin de LogLine
 
 
-LogLine::~LogLine()
+LogLine::~LogLine ( )
 // Algorithme :
 //
 {
@@ -70,5 +102,5 @@ LogLine::~LogLine()
 
   //------------------------------------------------------------------ PRIVE
 
-  //----------------------------------------------------- Méthodes protégées
+  //----------------------------------------------------- Methodes protegees
 

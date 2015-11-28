@@ -5,9 +5,10 @@ début                : 23/11/2015 14:30:19
 copyright            : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
 e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 *************************************************************************/
-#include "Utilisateur.h"
 #include "Document.h"
 #include "NombreDeHits.h"
+#include "LogParser.h"
+
 
 #include <iostream>
 using namespace std;
@@ -18,11 +19,13 @@ void defautAvecExclusion ( string nomFichierLog );
 void defautPourUneHeure ( string nomFichierLog, int heure );
 //faire une fonction man de ce programme si erreur commande
 
+
 int main (int argc, char* argv[])
 {
     string nomFichierLog = "";
     string nomFichierGraph = "";
     int heure = 0;
+
 
     switch (argc) {
 

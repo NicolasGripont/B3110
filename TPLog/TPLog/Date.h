@@ -1,8 +1,9 @@
 /*************************************************************************
                            Date.h  -  description
-                             -------------------
-    debut                : 19/10
-    copyright            : (C) 2015 par Nicolas Gripont, Quentin Schroter
+-------------------
+debut      : 27/11/2015 22:30:09
+copyright  : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
+e-mail     : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 *************************************************************************/
 
 //---------- Interface de la classe <Date> (fichier Date.h) ------
@@ -16,8 +17,8 @@
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rele de la classe <Date>
-//
+// Role de la classe <Date>
+// Classe permertant de créer un objet de type date
 //
 //------------------------------------------------------------------------
 
@@ -51,56 +52,69 @@ public:
 //------------------------------------------------- Surcharge d'operateurs
     Date & operator = ( const Date & uneDate );
     // Mode d'emploi :
+    // Redefinition de l'operateur =
     //
-    // Contrat :
+    // Contrat : aucun.
     //
 
     bool operator == ( const Date & uneDate );
     // Mode d'emploi :
+    // Redefinition de l'operateur ==
     //
-    // Contrat :
+    // Contrat : aucun.
     //
 
     bool operator < ( const Date & uneDate ) const;
 	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+    // Redefinition de l'operateur <
+    //
+    // Contrat : aucun.
+    //
 
     bool operator > ( const Date & uneDate ) const;
 	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+    // Redefinition de l'operateur >
+    //
+    // Contrat : aucun.
+    //
+
     bool operator <= ( const Date & uneDate ) const;
 	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+    // Redefinition de l'operateur <=
+    //
+    // Contrat : aucun.
+    //
 
     bool operator >= ( const Date & uneDate ) const;
 	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+    // Redefinition de l'operateur >=
+    //
+    // Contrat : aucun.
+    //
 
 //-------------------------------------------- Constructeurs - destructeur
     Date ( const Date & uneDate );
-    // Mode d'emploi (constructeur de copie) :
+    // Mode d'emploi : constructeur de copie
+    //
+    // Contrat : aucun.
+    //
+
+    Date ( int yyyy, int mm, int dd, int h, int m, int s, int g );
+    // Mode d'emploi : Constructeur.
     //
     // Contrat :
     //
 
     Date ( int yyyy, int mm, int dd, int h, int m, int s = 0 );
-    // Mode d'emploi :
+    // Mode d'emploi : Constructeur.
     //
-    // Contrat :
+    // Contrat : aucun.
     //
 
     virtual ~Date ( );
-    // Mode d'emploi :
+    // Mode d'emploi : Destructeur.
     //
-    // Contrat :
+    // Contrat : aucun.
     //
 
 //------------------------------------------------------------------ PRIVE
@@ -117,18 +131,20 @@ protected:
 private:
 //------------------------------------------------------- Attributs prives
 
-    int annee;
+    int annee;      // Valeur de l'annee.
 
-    int mois;
+    int mois;       // Valeur du mois.
 
-    int jour;
+    int jour;       // Valeur du jour.
 
-    int heure;
+    int heure;      // Valeur de l'heure.
 
-    int minute;
+    int minute;     // Valeur de la minute.
 
-    int seconde;
+    int seconde;    // Valeur de la seconde.
 
+    int gmt;        // Valeur de la difference de l’heure avec celle
+                    // de Greenwich.
 
 
 //---------------------------------------------------------- Classes amies

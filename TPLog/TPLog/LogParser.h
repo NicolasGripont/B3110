@@ -1,77 +1,89 @@
 /*************************************************************************
 LogParser  -  fichier d'en-tête de la classe <LogParser>
 -------------------
-début                : 27/11/2015 22:28:31
-copyright            : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
-e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
+debut      : 27/11/2015 22:28:31
+copyright  : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
+e-mail     : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 *************************************************************************/
 
-//---------- Interface de la classe <LogParser> (fichier LogParser.h) ------
+//---------- Interface de la classe <LogParser> (fichier LogParser.h) ----
 #if ! defined ( LogParser_H )
 #define LogParser_H
 
-//--------------------------------------------------- Interfaces utilisées
+//--------------------------------------------------- Interfaces utilisees
 
+#include "LogLine.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe <LogParser>
-//
-//
+// Rôle de la classe <LogParser> : Classe permettant de creer des objets
+// de type LogLine. Cette classe ne contient qu?une methode de classe
+// (static), nous avons donc interdit de construire un objet de ce type.
 //------------------------------------------------------------------------
 
-class LogParser : public Ancetre
+class LogParser
 {
-	//----------------------------------------------------------------- PUBLIC
+//----------------------------------------------------------------- PUBLIC
 
 public:
-	//----------------------------------------------------- Méthodes publiques
-	// type Méthode ( liste des paramètres );
+//----------------------------------------------------- Methodes publiques
+    static LogLine Parser (string line );
 	// Mode d'emploi :
+    // Methode permettant de creer un de type LogLine à partir d'une
+    // string contenant une ligne de log d'un fichier de log Apache.
 	//
 	// Contrat :
+    // Il faut que la ligne donnée en paramètre soit
+    // valide. Sinon l'objet LogLine retourné ne sera pas valide.
 	//
 
 
-	//------------------------------------------------- Surcharge d'opérateurs
-	LogParser & operator = (const LogParser & unLogParser);
-	// Mode d'emploi :
+//------------------------------------------------- Surcharge d'operateurs
+    LogParser & operator = ( const LogParser & unLogParser );
+    // Mode d'emploi :
+    // Operateur "=" interdit.
 	//
-	// Contrat :
+    // Contrat :
+    // Aucun.
 	//
 
 
-	//-------------------------------------------- Constructeurs - destructeur
-	LogParser(const LogParser & unLogParser);
+//-------------------------------------------- Constructeurs - destructeur
+    LogParser ( const LogParser & unLogParser );
 	// Mode d'emploi (constructeur de copie) :
-	//
-	// Contrat :
+    // Constructeur de copie interdit.
+    //
+    // Contrat :
+    // Aucun.
 	//
 
-	LogParser();
+    LogParser ( );
 	// Mode d'emploi :
-	//
-	// Contrat :
+    // Constructeur par defaut interdit.
+    //
+    // Contrat :
+    // Aucun.
 	//
 
-	virtual ~LogParser();
+    virtual ~LogParser ( );
 	// Mode d'emploi :
-	//
+    // Destructeur interdit.
+    //
 	// Contrat :
 	//
 
-	//------------------------------------------------------------------ PRIVE
+//------------------------------------------------------------------ PRIVE
 
 protected:
-	//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- Methodes protegees
 
-	//----------------------------------------------------- Attributs protégés
+//----------------------------------------------------- Attributs proteges
 
 };
 
-//--------------------------- Autres définitions dépendantes de <LogParser>
+//--------------------------- Autres definitions dependantes de <LogParser>
 
 #endif // LogParser_H
 

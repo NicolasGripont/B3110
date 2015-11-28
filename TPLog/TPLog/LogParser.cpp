@@ -1,19 +1,20 @@
 /*************************************************************************
-LogParser  -  fichier de réalisation de la classe <LogParser>
+LogParser  -  fichier de realisation de la classe <LogParser>
 -------------------
-début                : 27/11/2015 22:28:52
-copyright            : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
-e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
+debut      : 27/11/2015 22:28:52
+copyright  : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
+e-mail     : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 *************************************************************************/
 
-//---------- Réalisation de la classe <LogParser> (fichier LogParser.cpp) --
+//-------- Realisation de la classe <LogParser> (fichier LogParser.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
-#include <iostream>
 
+#include <sstream>
+#include <string>
+using namespace std;
 //------------------------------------------------------ Include personnel
 #include "LogParser.h"
 
@@ -21,54 +22,77 @@ using namespace std;
 
 //----------------------------------------------------------------- PUBLIC
 
-//----------------------------------------------------- Méthodes publiques
-// type LogParser::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
-
-//------------------------------------------------- Surcharge d'opérateurs
-LogParser & LogParser::operator = (const LogParser & unLogParser)
+//----------------------------------------------------- Methodes publiques
+LogLine LogParser::Parser( string line )
 // Algorithme :
 //
 {
-} //----- Fin de operator =
+    LogLine logLine;
+    string tmp;
+    char separateur;
+
+    istringstream iss(line);
+
+    separateur = ' ';
+    getline(iss,tmp,separateur);
+    logLine.clientIP = tmp;
+
+    getline(iss,tmp,separateur);
+    logLine.userLogName = tmp;
+
+    getline(iss,tmp,separateur);
+    logLine.authenticatedUser = tmp;
+
+    separateur = '[';
+    getline(iss,tmp,separateur);
+    separateur = ']';
+    getline(iss,tmp,separateur);
+    logLine.date = tmp;
+
+    separateur = '"';
+    getline(iss,tmp,separateur);
+    separateur = ' ';
+    getline(iss,tmp,separateur);
+    logLine.actionType = tmp;
+
+    getline(iss,tmp,separateur);
+    logLine.requestedURL = tmp;
+
+    separateur = '"';
+    getline(iss,tmp,separateur);
+    logLine.httpVersion = tmp;
+
+    separateur = ' ';
+    getline(iss,tmp,separateur);
+    getline(iss,tmp,separateur);
+    logLine.status = tmp;
+
+    getline(iss,tmp,separateur);
+    logLine.bytesNumber = tmp;
+
+    separateur = '"';
+    getline(iss,tmp,separateur);
+    getline(iss,tmp,separateur);
+    logLine.referer = tmp;
+
+    getline(iss,tmp,separateur);
+    getline(iss,tmp,separateur);
+    logLine.navigator = tmp;
+
+    return logLine;
+} //----- Fin de Methode
 
 
-  //-------------------------------------------- Constructeurs - destructeur
-LogParser::LogParser(const LogParser & unLogParser)
-// Algorithme :
-//
-{
-#ifdef MAP
-	cout << "Appel au constructeur de copie de <LogParser>" << endl;
-#endif
-} //----- Fin de LogParser (constructeur de copie)
+
+//------------------------------------------------- Surcharge d'operateurs
 
 
-LogParser::LogParser()
-// Algorithme :
-//
-{
-#ifdef MAP
-	cout << "Appel au constructeur de <LogParser>" << endl;
-#endif
-} //----- Fin de LogParser
+//-------------------------------------------- Constructeurs - destructeur
 
 
-LogParser::~LogParser()
-// Algorithme :
-//
-{
-#ifdef MAP
-	cout << "Appel au destructeur de <LogParser>" << endl;
-#endif
-} //----- Fin de ~LogParser
 
 
-  //------------------------------------------------------------------ PRIVE
+//------------------------------------------------------------------ PRIVE
 
-  //----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- Methodes protegees
 

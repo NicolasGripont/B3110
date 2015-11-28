@@ -1,8 +1,9 @@
 /*************************************************************************
-                           Date  -  description
-                             -------------------
-    debut                : 19/10
-    copyright            : (C) 2015 par Nicolas Gripont, Quentin Schroter
+Date  -  fichier d'en-tête de la classe <Date>
+-------------------
+debut      : 27/11/2015 22:30:09
+copyright  : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
+e-mail     : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 *************************************************************************/
 
 //---------- Realisation de la classe <Date> (fichier Date.cpp) --
@@ -31,7 +32,8 @@ void Date::Affiche( )
 // Algorithme :
 //
 {
-	cout <<jour<<"/"<<mois<<"/"<<annee<<" "<<heure<<":"<<minute<<":"<<seconde<<endl;
+    cout <<jour<<"/"<<mois<<"/"<<annee<<" "<<heure<<":"<<minute<<":"
+        <<seconde<<" "<< gmt <<endl;
 } //----- Fin de Methode
 
 bool Date::EstValide( )
@@ -163,6 +165,16 @@ Date::Date ( const Date & uneDate ) : annee(uneDate.annee),
     cout << "Appel au constructeur de copie de <Date>" << endl;
 #endif
 } //----- Fin de Date (constructeur de copie)
+
+Date::Date ( int yyyy, int mm, int dd, int h, int m, int s, int g ) : annee(yyyy),
+        mois(mm), jour(dd), heure(h), minute(m), seconde(s), gmt(g)
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <Date>" << endl;
+#endif
+} //----- Fin de Date
 
 
 Date::Date ( int yyyy, int mm, int dd, int h, int m, int s ) : annee(yyyy),
