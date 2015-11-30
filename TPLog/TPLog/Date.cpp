@@ -11,8 +11,8 @@ e-mail     : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include systeme
-using namespace std;
 #include <iostream>
+using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Date.h"
@@ -40,6 +40,9 @@ bool Date::EstValide( )
 // Algorithme :
 //
 {
+    int gmtH = gmt / 100;
+    int gmtM = gmt % 100;
+
 	return( mois > 1 || mois <= 12 ||
 		jour > 1 ||
 		(mois == 1 && jour <= 31) ||
@@ -157,7 +160,7 @@ bool Date::operator >= ( const Date & uneDate ) const
 //-------------------------------------------- Constructeurs - destructeur
 Date::Date ( const Date & uneDate ) : annee(uneDate.annee),
 		mois(uneDate.mois), jour(uneDate.jour), heure(uneDate.heure),
-		minute(uneDate.minute), seconde(uneDate.seconde)
+        minute(uneDate.minute), seconde(uneDate.seconde), gmt(uneDate.gmt)
 // Algorithme :
 //
 {
@@ -166,8 +169,9 @@ Date::Date ( const Date & uneDate ) : annee(uneDate.annee),
 #endif
 } //----- Fin de Date (constructeur de copie)
 
-Date::Date ( int yyyy, int mm, int dd, int h, int m, int s, int g ) : annee(yyyy),
-        mois(mm), jour(dd), heure(h), minute(m), seconde(s), gmt(g)
+Date::Date ( int yyyy, int mm, int dd, int h, int m, int s, int g ) :
+    annee(yyyy), mois(mm), jour(dd), heure(h), minute(m), seconde(s),
+    gmt(g)
 // Algorithme :
 //
 {

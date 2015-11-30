@@ -91,10 +91,10 @@ public:
 
     string httpVersion;         // Version du protocole HTTP.
 
-    string status;              // Code de retour de la reponse du
+    int status;              // Code de retour de la reponse du
                                 // serveur.
 
-    string bytesNumber;         // Nombre d'octets de la reponse.
+    int bytesNumber;         // Nombre d'octets de la reponse.
 
     string referer;             // Adresse sur laquelle le navigateur se
                                 // trouvait lorsqu?il a effectue sa

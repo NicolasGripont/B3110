@@ -65,7 +65,7 @@ LogLine::LogLine ( const LogLine & unLogLine ) :
     actionType(unLogLine.actionType),
     requestedURL(unLogLine.requestedURL),
     httpVersion(unLogLine.httpVersion),
-    bytesNumber(unLogLine.bytesNumber), status(unLogLine.status),
+    status(unLogLine.status), bytesNumber(unLogLine.bytesNumber),
     referer(unLogLine.referer), navigator(unLogLine.navigator)
 // Algorithme :
 //
@@ -79,7 +79,7 @@ LogLine::LogLine ( const LogLine & unLogLine ) :
 
 LogLine::LogLine ( ) : clientIP(""), userLogName(""),
     authenticatedUser(""), date(""), actionType(""), requestedURL(""),
-    httpVersion(""), status(""), bytesNumber(""), referer(""),
+    httpVersion(""), status(0), bytesNumber(0), referer(""),
     navigator("")
 // Algorithme :
 //

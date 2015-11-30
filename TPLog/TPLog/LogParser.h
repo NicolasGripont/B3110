@@ -13,6 +13,7 @@ e-mail     : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 //--------------------------------------------------- Interfaces utilisees
 
 #include "LogLine.h"
+#include "Date.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -29,7 +30,7 @@ class LogParser
 
 public:
 //----------------------------------------------------- Methodes publiques
-    static LogLine Parser (string line );
+    static LogLine Parser ( string line );
 	// Mode d'emploi :
     // Methode permettant de creer un de type LogLine à partir d'une
     // string contenant une ligne de log d'un fichier de log Apache.
@@ -38,6 +39,7 @@ public:
     // Il faut que la ligne donnée en paramètre soit
     // valide. Sinon l'objet LogLine retourné ne sera pas valide.
 	//
+
 
 
 //------------------------------------------------- Surcharge d'operateurs
@@ -78,6 +80,24 @@ public:
 
 protected:
 //----------------------------------------------------- Methodes protegees
+
+//    static Date ParserDate ( string date );
+//    // Mode d'emploi :
+//    // Methode permettant de creer un de type Date à partir d'une
+//    // string contenant le champs date d'une ligne de log d'un
+//    // fichier de log Apache.
+//    //
+//    // Contrat :
+//    //
+//    //
+
+//    static int Mois ( string mois );
+//    // Mode d'emploi :
+//    //
+//    //
+//    // Contrat :
+//    //
+//    //
 
 //----------------------------------------------------- Attributs proteges
 

@@ -1,25 +1,25 @@
 #VARIABLES
 
-MAKEFILE = makefile
-EXE = TPLOG.exe
+MAKEFILE = makefiletest
+EXE = TEST.exe
 COMP = g++
 RM = rm
 EDL = g++
 ECHO = echo
-INT = LogLine.h LogParser.h
-REAL = $(INT:.h=.cpp) Main.cpp
-OBJ = $(INT:.h=.o) Main.o
+INT = TestLog.h LogParser.h LogLine.h Date.h
+REAL = $(INT:.h=.cpp) MainTest.cpp
+OBJ = $(INT:.h=.o) MainTest.o
 OUTPUT = -o
 RMFLAGS = -f
-CPPFLAGS = #-D TEST #-D NOMAP
-EDLFLAGS = 
+CPPFLAGS =-std=c++11 -Wall -O3 #-D TEST #-D MAP
+EDLFLAGS =-g 
 LIBS = 
 LIBPATH =# -L
 INCPATH =# -I
 CLEAN = clean
 SOS = backup
 BACKUPFILE = backup.sh
-RESSOURCES = 
+RESSOURCES =
 
 
 #RULES
@@ -32,14 +32,12 @@ $(EXE) : $(OBJ)
 	$(ECHO) "Compilation de <$<>"
 	$(COMP) $(CPPFLAGS) $(INCPATH) -c $<
 
-
-Main.o : TestLog.h TestLog.cpp LogParser.h LogParser.cpp LogLine.h LogLine.cpp Date.h Date.cpp $(MAKEFILE)
+MainTest.o : TestLog.h TestLog.cpp LogParser.h LogParser.cpp LogLine.h LogLine.cpp Date.h Date.cpp $(MAKEFILE)
 Date.o : Date.h $(MAKEFILE)
 LogLine.o : LogLine.h Date.h Date.cpp $(MAKEFILE)
 LogParser.o : LogParser.h LogLine.h LogLine.cpp Date.h Date.cpp $(MAKEFILE)
-
-
 TestLog.o : TestLog.h LogParser.h LogParser.cpp LogLine.h LogLine.cpp Date.h Date.cpp $(MAKEFILE)
+
 
 $(CLEAN) :
 	$(ECHO) "nettoyage du repertoire..."

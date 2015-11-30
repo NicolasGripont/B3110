@@ -5,12 +5,29 @@ début                : 23/11/2015 14:30:19
 copyright            : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
 e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 *************************************************************************/
+
 #include "Document.h"
 #include "NombreDeHits.h"
 #include "LogParser.h"
 
-
 #include <iostream>
+
+#ifdef TEST
+
+#include "TestLog.h"
+
+int main()
+// Algorithme
+//
+{
+    test_LogParser_Parser();
+    return 0;
+}//----- Fin de Main
+
+#else
+
+
+
 using namespace std;
 
 void defaut ( string nomFichierLog );
@@ -18,6 +35,8 @@ void creerGraphe ( string nomFichierLog, string nomFichierGraphe );
 void defautAvecExclusion ( string nomFichierLog );
 void defautPourUneHeure ( string nomFichierLog, int heure );
 //faire une fonction man de ce programme si erreur commande
+
+
 
 
 int main (int argc, char* argv[])
@@ -102,3 +121,5 @@ void defautPourUneHeure ( string nomFichierLog, int heure )
 {
     cout<<"defautPourUneHeure"<<endl;
 }
+
+#endif
