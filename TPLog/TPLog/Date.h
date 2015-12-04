@@ -17,12 +17,12 @@ e-mail     : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Role de la classe <Date>
+// Role de la structure <Date>
 // Classe permertant de créer un objet de type date
 //
 //------------------------------------------------------------------------
 
-class Date
+struct Date
 {
 //----------------------------------------------------------------- PUBLIC
 
@@ -60,6 +60,7 @@ public:
     bool operator == ( const Date & uneDate );
     // Mode d'emploi :
     // Redefinition de l'operateur ==
+    // Attention, ne prend pas en compte la valeur du GMT
     //
     // Contrat : aucun.
     //
@@ -92,6 +93,13 @@ public:
     // Contrat : aucun.
     //
 
+    friend ostream & operator << (ostream & os, Date &d);
+    // Mode d'emploi :
+    // Redefinition de l'operateur <<
+    //
+    // Contrat : aucun.
+    //
+
 //-------------------------------------------- Constructeurs - destructeur
     Date ( const Date & uneDate );
     // Mode d'emploi : constructeur de copie
@@ -99,16 +107,10 @@ public:
     // Contrat : aucun.
     //
 
-    Date ( int yyyy, int mm, int dd, int h, int m, int s, int g );
+    Date ( int yyyy, int mm, int dd, int h, int m, int s = 0, int g = 0 );
     // Mode d'emploi : Constructeur.
     //
     // Contrat :
-    //
-
-    Date ( int yyyy, int mm, int dd, int h, int m, int s = 0 );
-    // Mode d'emploi : Constructeur.
-    //
-    // Contrat : aucun.
     //
 
     virtual ~Date ( );
@@ -117,19 +119,7 @@ public:
     // Contrat : aucun.
     //
 
-//------------------------------------------------------------------ PRIVE
-
-protected:
-//----------------------------------------------------- Methodes protegees
-
-private:
-//------------------------------------------------------- Methodes privees
-
-protected:
-//----------------------------------------------------- Attributs proteges
-
-private:
-//------------------------------------------------------- Attributs prives
+//------------------------------------------------------ Attributs publics
 
     int annee;      // Valeur de l'annee.
 
@@ -145,13 +135,6 @@ private:
 
     int gmt;        // Valeur de la difference de l’heure avec celle
                     // de Greenwich.
-
-
-//---------------------------------------------------------- Classes amies
-
-//-------------------------------------------------------- Classes privees
-
-//----------------------------------------------------------- Types prives
 
 };
 

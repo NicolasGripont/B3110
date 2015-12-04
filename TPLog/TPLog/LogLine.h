@@ -13,6 +13,8 @@ e-mail     : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 //--------------------------------------------------- Interfaces utilisees
 #include <iostream>
 using namespace std;
+
+#include "Date.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -81,7 +83,7 @@ public:
     string authenticatedUser;   // Nom d?utilisateur que l?internaute
                                 // s?est donne lui-même.
 
-    string date;                // Date et Heure de la requête avec GMT.
+    Date date;                // Date et Heure de la requête avec GMT.
 
     string actionType;          // Type d?action executee (GET, POST,
                                 // OPTIONS, ?).

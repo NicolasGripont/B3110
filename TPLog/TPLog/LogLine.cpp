@@ -28,6 +28,7 @@ void  LogLine::Afficher ( )
     cout << userLogName << endl;
     cout << authenticatedUser << endl;
     cout << date << endl;
+    //date.Affiche();
     cout << actionType << endl;
     cout << requestedURL << endl;
     cout << httpVersion << endl;
@@ -78,7 +79,7 @@ LogLine::LogLine ( const LogLine & unLogLine ) :
 
 
 LogLine::LogLine ( ) : clientIP(""), userLogName(""),
-    authenticatedUser(""), date(""), actionType(""), requestedURL(""),
+    authenticatedUser(""), date(0,0,0,0,0,0,0), actionType(""), requestedURL(""),
     httpVersion(""), status(0), bytesNumber(0), referer(""),
     navigator("")
 // Algorithme :

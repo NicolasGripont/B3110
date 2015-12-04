@@ -6,12 +6,12 @@ COMP = g++
 RM = rm
 EDL = g++
 ECHO = echo
-INT = LogLine.h LogParser.h
+INT = TestLog.h LogParser.h LogLine.h Date.h
 REAL = $(INT:.h=.cpp) Main.cpp
 OBJ = $(INT:.h=.o) Main.o
 OUTPUT = -o
 RMFLAGS = -f
-CPPFLAGS = #-D TEST #-D NOMAP
+CPPFLAGS = -D TEST #-D NOMAP
 EDLFLAGS = 
 LIBS = 
 LIBPATH =# -L

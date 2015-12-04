@@ -81,23 +81,23 @@ public:
 protected:
 //----------------------------------------------------- Methodes protegees
 
-//    static Date ParserDate ( string date );
-//    // Mode d'emploi :
-//    // Methode permettant de creer un de type Date à partir d'une
-//    // string contenant le champs date d'une ligne de log d'un
-//    // fichier de log Apache.
-//    //
-//    // Contrat :
-//    //
-//    //
+    static Date ParserDate ( string date );
+    // Mode d'emploi :
+    // Methode permettant de creer un de type Date à partir d'une
+    // string contenant le champs date d'une ligne de log d'un
+    // fichier de log Apache.
+    //
+    // Contrat :
+    //
+    //
 
-//    static int Mois ( string mois );
-//    // Mode d'emploi :
-//    //
-//    //
-//    // Contrat :
-//    //
-//    //
+    static int Mois ( string mois );
+    // Mode d'emploi :
+    //
+    //
+    // Contrat :
+    //
+    //
 
 //----------------------------------------------------- Attributs proteges
 
