@@ -22,7 +22,7 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 //
 //------------------------------------------------------------------------
 
-class GraphDocuments : public Ancetre
+class GraphDocuments 
 {
 	//----------------------------------------------------------------- PUBLIC
 

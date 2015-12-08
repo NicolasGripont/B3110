@@ -11,7 +11,9 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 #define Document_H
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include "NombreDeHits.h"
+#include <map>
+#include "LogLine.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -28,11 +30,20 @@ class Document
 
 public:
 	//----------------------------------------------------- Méthodes publiques
-	// type Méthode ( liste des paramètres );
+	void MAJHits (const LogLine & uneLigne);
 	// Mode d'emploi :
+	// Met à jour le nombre de hits du document en fonction du code de retour de la requête
 	//
-	// Contrat :
+	// Contrat : aucun
 	//
+
+	void MAJDocAtteignable(const LogLine & uneLigne, const Document & unDoc);
+	// Mode d'emploi :
+	// Met à jour les documents atteignables depuis ce document.
+	//
+	// Contrat : Aucun (ptet qu'il ne soit pas déjà dans les docs ateignables)
+	//
+
 
 
 	//------------------------------------------------- Surcharge d'opérateurs
@@ -50,10 +61,11 @@ public:
 	// Contrat :
 	//
 
-	Document();
+	Document(LogLine uneLigne);
 	// Mode d'emploi :
+	// Créé un document à partir d'une ligne de logline
 	//
-	// Contrat :
+	// Contrat : aucun.
 	//
 
 	virtual ~Document();
@@ -68,6 +80,11 @@ protected:
 	//----------------------------------------------------- Méthodes protégées
 
 	//----------------------------------------------------- Attributs protégés
+	string nomDomaine;
+	string cheminAccesRessource;
+	NombreDeHits nbHits;
+	typedef map<string, Document> maap;
+	maap documentAtteignable;
 	
 };
 

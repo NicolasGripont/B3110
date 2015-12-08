@@ -62,13 +62,9 @@ struct NombreDeHits
 	// Contrat :
 	//
 
-	//------------------------------------------------------------------ PRIVE
 
-protected:
-	//----------------------------------------------------- Méthodes protégées
-	int nombreDeHitsReussisParHeure[NB_HEURE_PAR_JOUR] = { 0 };
-	int nombreDeHitsEchouesParHeure[NB_HEURE_PAR_JOUR] = { 0 };
-	//----------------------------------------------------- Attributs protégés
+	int nombreDeHitsReussisParHeure[NB_HEURE_PAR_JOUR];
+	int nombreDeHitsEchouesParHeure[NB_HEURE_PAR_JOUR];
 
 };
 

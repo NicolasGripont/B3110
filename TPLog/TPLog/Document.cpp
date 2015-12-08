@@ -22,11 +22,23 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Document::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
+ void Document::MAJHits ( const LogLine & uneLigne )
+ //Algorithme :
+{
+	if (uneLigne.status < 300)
+	{
+		nbHits.nombreDeHitsReussisParHeure[uneLigne.date.heure]++;
+	}
+	else
+	{
+		nbHits.nombreDeHitsEchouesParHeure[uneLigne.date.heure]++;
+	}
+} //----- Fin de MAJ
+
+ void Document::MAJDocAtteignable(const LogLine & uneLigne, const Document & unDoc)
+ {
+	 documentAtteignable.insert(make_pair(uneLigne.requestedURL, unDoc));
+ }
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -34,11 +46,18 @@ Document & Document::operator = (const Document & unDocument)
 // Algorithme :
 //
 {
+	nomDomaine = unDocument.nomDomaine;
+	cheminAccesRessource = unDocument.cheminAccesRessource;
+	documentAtteignable = unDocument.documentAtteignable;
+	nbHits = unDocument.nbHits;
+	return *this;
 } //----- Fin de operator =
 
 
   //-------------------------------------------- Constructeurs - destructeur
-Document::Document(const Document & unDocument)
+Document::Document(const Document & unDocument) : nomDomaine(unDocument.nomDomaine), 
+	cheminAccesRessource(unDocument.cheminAccesRessource), documentAtteignable(unDocument.documentAtteignable),
+	nbHits(unDocument.nbHits)
 // Algorithme :
 //
 {
@@ -48,13 +67,15 @@ Document::Document(const Document & unDocument)
 } //----- Fin de Document (constructeur de copie)
 
 
-Document::Document()
+Document::Document(LogLine uneLigne) : nomDomaine(uneLigne.referer), 
+	cheminAccesRessource(uneLigne.referer), documentAtteignable(), nbHits()
 // Algorithme :
 //
 {
 #ifdef MAP
 	cout << "Appel au constructeur de <Document>" << endl;
 #endif
+
 } //----- Fin de Document
 
 
