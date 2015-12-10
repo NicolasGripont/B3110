@@ -66,12 +66,21 @@ public:
 	// Contrat :
 	//
 
-	Document(LogLine uneLigne);
+    Document(LogLine uneLigne);
 	// Mode d'emploi :
 	// Créé un document à partir d'une ligne de logline
 	//
 	// Contrat : aucun.
 	//
+
+
+    Document(string nD, string cAR);
+    // Mode d'emploi :
+    // Constructeur.
+    //
+    // Contrat : aucun.
+    //
+
 
 	virtual ~Document();
 	// Mode d'emploi :
@@ -88,8 +97,7 @@ protected:
 	string nomDomaine;
 	string cheminAccesRessource;
 	NombreDeHits nbHits;
-	typedef map<Document, NombreDeHits> maap;
-	maap documentAtteignable;
+    map<Document, NombreDeHits> documentAtteignable;
 	
 };
 

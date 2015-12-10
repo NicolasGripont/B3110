@@ -122,6 +122,17 @@ Document::Document(LogLine uneLigne) : nomDomaine(uneLigne.referer),
 
 } //----- Fin de Document
 
+Document::Document(string nD, string cAR) : nomDomaine(nD),
+ cheminAccesRessource(cAR), nbHits(), documentAtteignable()
+// Algorithme :
+//
+{
+#ifdef MAP
+ cout << "Appel au constructeur de <Document>" << endl;
+#endif
+
+} //----- Fin de Document
+
 
 Document::~Document()
 // Algorithme :

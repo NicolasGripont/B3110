@@ -33,10 +33,11 @@ int main()
 
 using namespace std;
 
-void defaut ( string nomFichierLog );
-void creerGraphe (GraphDocuments graph, string nomFichierGraphe );
-void defautAvecExclusion ( string nomFichierLog );
-void defautPourUneHeure ( string nomFichierLog, int heure );
+void defaut ( const string & nomFichierLog );
+void creerGraphe ( const GraphDocuments & graph, const string & nomFichierGraphe );
+GraphDocuments & creerGraphe ( const string & fichierLog );
+void defautAvecExclusion ( const string & nomFichierLog );
+void defautPourUneHeure ( const string & nomFichierLog, int heure );
 //faire une fonction man de ce programme si erreur commande
 
 
@@ -47,6 +48,7 @@ int main (int argc, char* argv[])
     string serverAdress = "";
     int heure = -1;
     bool exclusion = false;
+
 
     cout << "argc = " << argc << endl;
 
@@ -113,14 +115,14 @@ int main (int argc, char* argv[])
 }
 
 
-void defaut ( string nomFichierLog )
+void defaut (const string &nomFichierLog )
 {
     cout<<"defaut"<<endl;
 }
 
-void creerGraphe ( GraphDocuments graph, string nomFichierGraphe )
+void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichierGraphe )
 {
-    cout<<"creerGraphe"<<endl;
+    cout<<"creerFichierGraphe"<<endl;
 //    ofstream fichier(nomFichierGraphe,ios::out | ios::trunc);
 //    if(fichier)
 //    {
@@ -148,12 +150,28 @@ void creerGraphe ( GraphDocuments graph, string nomFichierGraphe )
 //    }
 }
 
-void defautAvecExclusion ( string nomFichierLog )
+GraphDocuments & creerGraphe ( const string & fichierLog )
+{
+    cout<<"creerGraphe"<<endl;
+    ifstream fichier(nomFichierGraphe,ios::in);
+    if(fichier)
+    {
+        //string logLine;
+        //lire toute les lignes;
+
+    }
+    else
+    {
+        cerr << "Impossible d'ouvrir " << fichierLog << " !" <<endl;
+    }
+}
+
+void defautAvecExclusion ( const string & nomFichierLog )
 {
     cout<<"defautAvecExclusion"<<endl;
 }
 
-void defautPourUneHeure ( string nomFichierLog, int heure )
+void defautPourUneHeure ( const string & nomFichierLog, int heure )
 {
     cout<<"defautPourUneHeure"<<endl;
 }
