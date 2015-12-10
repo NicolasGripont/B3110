@@ -37,11 +37,32 @@ using namespace std;
 
  void Document::MAJDocAtteignable(const LogLine & uneLigne, const Document & unDoc)
  {
-	 documentAtteignable.insert(make_pair(uneLigne.requestedURL, unDoc));
+	 NombreDeHits unNombreDeHits;
+
+	 if (documentAtteignable.find(unDoc) != documentAtteignable.end())
+	 {
+		 if (uneLigne.status < 300)
+		 {
+			 documentAtteignable.find(unDoc)->second.nombreDeHitsReussisParHeure[uneLigne.date.heure]++;
+		 }
+		 else
+		 {
+			 documentAtteignable.find(unDoc)->second.nombreDeHitsEchouesParHeure[uneLigne.date.heure]++;
+		 }
+	 }
+	 else
+	 {
+		 documentAtteignable.insert(make_pair(unDoc, unNombreDeHits));
+	 }
  }
 
 
-//------------------------------------------------- Surcharge d'opérateurs
+ string Document::CheminAccesRessource()
+ {
+	 return cheminAccesRessource;
+ }
+
+ //------------------------------------------------- Surcharge d'opérateurs
 Document & Document::operator = (const Document & unDocument)
 // Algorithme :
 //
@@ -49,12 +70,27 @@ Document & Document::operator = (const Document & unDocument)
 	nomDomaine = unDocument.nomDomaine;
 	cheminAccesRessource = unDocument.cheminAccesRessource;
 	documentAtteignable = unDocument.documentAtteignable;
-	nbHits = unDocument.nbHits;
+	nbHits = NombreDeHits(unDocument.nbHits);
 	return *this;
 } //----- Fin de operator =
 
 
-  //-------------------------------------------- Constructeurs - destructeur
+bool Document::operator<(const Document & unDocument) const
+{
+	return cheminAccesRessource < unDocument.cheminAccesRessource;
+}
+
+bool Document::operator==(const Document & unDocument) const
+{
+	return cheminAccesRessource == unDocument.cheminAccesRessource;
+}
+
+bool Document::operator>(const Document & unDocument) const
+{
+	return cheminAccesRessource > unDocument.cheminAccesRessource;
+}
+
+//-------------------------------------------- Constructeurs - destructeur
 Document::Document(const Document & unDocument) : nomDomaine(unDocument.nomDomaine), 
 	cheminAccesRessource(unDocument.cheminAccesRessource), documentAtteignable(unDocument.documentAtteignable),
 	nbHits(unDocument.nbHits)
