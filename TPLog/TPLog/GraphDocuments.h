@@ -37,7 +37,7 @@ class GraphDocuments
 
 public:
 	//----------------------------------------------------- Méthodes publiques
-	// type Méthode ( liste des paramètres );
+     void TraiterLogLine ( const string & logLine );
 	// Mode d'emploi :
 	//
 	// Contrat :

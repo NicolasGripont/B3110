@@ -35,7 +35,7 @@ using namespace std;
 
 void defaut ( const string & nomFichierLog );
 void creerGraphe ( const GraphDocuments & graph, const string & nomFichierGraphe );
-GraphDocuments & creerGraphe ( const string & fichierLog );
+GraphDocuments* creerGraphe ( const string & fichierLog );
 void defautAvecExclusion ( const string & nomFichierLog );
 void defautPourUneHeure ( const string & nomFichierLog, int heure );
 //faire une fonction man de ce programme si erreur commande
@@ -150,20 +150,24 @@ void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichie
 //    }
 }
 
-GraphDocuments & creerGraphe ( const string & fichierLog )
+GraphDocuments* creerGraphe ( const string & fichierLog )
 {
+    GraphDocuments *graph = new GraphDocuments();
     cout<<"creerGraphe"<<endl;
-    ifstream fichier(nomFichierGraphe,ios::in);
+    ifstream fichier(fichierLog,ios::in);
     if(fichier)
     {
-        //string logLine;
-        //lire toute les lignes;
-
+        string logLine;
+        while ( getline(fichier, logLine) )
+        {
+            graph->TraiterLogLine(logLine);
+        }
     }
     else
     {
         cerr << "Impossible d'ouvrir " << fichierLog << " !" <<endl;
     }
+    return graph;
 }
 
 void defautAvecExclusion ( const string & nomFichierLog )

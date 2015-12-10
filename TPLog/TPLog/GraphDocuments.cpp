@@ -22,11 +22,11 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type GraphDocuments::Méthode ( liste des paramètres )
+void TraiterLogLine ( const string & logLine )
 // Algorithme :
 //
-//{
-//} //----- Fin de Méthode
+{
+} //----- Fin de Méthode
 
 
 //------------------------------------------------- Surcharge d'opérateurs
