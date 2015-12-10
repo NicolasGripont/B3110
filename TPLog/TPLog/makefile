@@ -1,7 +1,7 @@
 #VARIABLES
 
 MAKEFILE = makefile
-EXE = TPLOG.exe
+EXE = analog.exe
 COMP = g++
 RM = rm
 EDL = g++
@@ -11,7 +11,7 @@ REAL = $(INT:.h=.cpp) Main.cpp
 OBJ = $(INT:.h=.o) Main.o
 OUTPUT = -o
 RMFLAGS = -f
-CPPFLAGS = -D TEST #-D NOMAP
+CPPFLAGS = #-D TEST #-D NOMAP
 EDLFLAGS = 
 LIBS = 
 LIBPATH =# -L

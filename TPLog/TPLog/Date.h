@@ -28,19 +28,7 @@ struct Date
 
 public:
 //----------------------------------------------------- Methodes publiques
-    void Affiche( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
 
-    bool EstValide( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-//----------------------------------------------------- Methodes publiques
 	// type Methode ( liste de parametres );
 	// Mode d'emploi :
 	//
@@ -52,50 +40,14 @@ public:
 //------------------------------------------------- Surcharge d'operateurs
     Date & operator = ( const Date & uneDate );
     // Mode d'emploi :
-    // Redefinition de l'operateur =
-    //
-    // Contrat : aucun.
-    //
-
-    bool operator == ( const Date & uneDate );
-    // Mode d'emploi :
-    // Redefinition de l'operateur ==
-    // Attention, ne prend pas en compte la valeur du GMT
-    //
-    // Contrat : aucun.
-    //
-
-    bool operator < ( const Date & uneDate ) const;
-	// Mode d'emploi :
-    // Redefinition de l'operateur <
-    //
-    // Contrat : aucun.
-    //
-
-    bool operator > ( const Date & uneDate ) const;
-	// Mode d'emploi :
-    // Redefinition de l'operateur >
-    //
-    // Contrat : aucun.
-    //
-
-    bool operator <= ( const Date & uneDate ) const;
-	// Mode d'emploi :
-    // Redefinition de l'operateur <=
-    //
-    // Contrat : aucun.
-    //
-
-    bool operator >= ( const Date & uneDate ) const;
-	// Mode d'emploi :
-    // Redefinition de l'operateur >=
+    // Redefinition de l'operateur = pour une Date
     //
     // Contrat : aucun.
     //
 
     friend ostream & operator << (ostream & os, Date &d);
     // Mode d'emploi :
-    // Redefinition de l'operateur <<
+    // Redefinition de l'operateur << pour un ostream
     //
     // Contrat : aucun.
     //

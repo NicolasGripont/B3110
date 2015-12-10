@@ -84,7 +84,7 @@ protected:
 	string cheminAccesRessource;
 	NombreDeHits nbHits;
 	typedef map<string, Document> maap;
-	maap documentAtteignable;
+    maap documentAtteignable;
 	
 };
 

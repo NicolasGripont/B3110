@@ -12,9 +12,18 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 
 //--------------------------------------------------- Interfaces utilisées
 
+#include <vector>
+
+using namespace std;
+
+
+#include "Document.h"
+
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
+
+
 
 //------------------------------------------------------------------------
 // Rôle de la classe <GraphDocuments>

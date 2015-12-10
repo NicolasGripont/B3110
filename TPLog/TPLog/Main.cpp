@@ -6,11 +6,14 @@ copyright            : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
 e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 *************************************************************************/
 
-#include "Document.h"
+#include "GraphDocuments.h"
 #include "NombreDeHits.h"
 #include "LogParser.h"
 
 #include <iostream>
+#include <fstream>
+using namespace std;
+
 
 #ifdef TEST
 
@@ -31,73 +34,81 @@ int main()
 using namespace std;
 
 void defaut ( string nomFichierLog );
-void creerGraphe ( string nomFichierLog, string nomFichierGraphe );
+void creerGraphe (GraphDocuments graph, string nomFichierGraphe );
 void defautAvecExclusion ( string nomFichierLog );
 void defautPourUneHeure ( string nomFichierLog, int heure );
 //faire une fonction man de ce programme si erreur commande
-
-
 
 
 int main (int argc, char* argv[])
 {
     string nomFichierLog = "";
     string nomFichierGraph = "";
-    int heure = 0;
+    string serverAdress = "";
+    int heure = -1;
+    bool exclusion = false;
 
+    cout << "argc = " << argc << endl;
 
-    switch (argc) {
+    if ( argc < 3 )
+    {
+        cerr << "Commande invalide." << endl;
+        exit(1);
+    }
+    else
+    {
+        nomFichierLog = argv[argc-2];
+        serverAdress = argv[argc-1];
+    }
 
-    case 1 :
-        cerr << "Commande incomplete." << endl;
-        break;
-
-    case 2 :
-        nomFichierLog = argv[1];
-        defaut(nomFichierLog);
-        break;
-
-    case 3 :
-        if ( strcmp(argv[1],"-e") == 0 )
+    for (int i = 1; i < argc - 2; i++){
+        if (strcmp(argv[i],"-g")==0)
         {
-            nomFichierLog = argv[2];
-            defautAvecExclusion(nomFichierLog);
-        }
-        else
-        {
-             cerr << "Commande invalide." << endl;
-        }
-        break;
-
-    case 4 :
-        if ( strcmp(argv[1],"-g") == 0 )
-        {
-            nomFichierGraph = argv[2];
-            nomFichierLog = argv[3];
-            creerGraphe(nomFichierLog,nomFichierGraph);
-        }
-        else if ( strcmp(argv[1],"-t") == 0 )
-        {
-            if ( sscanf(argv[2],"%d",&heure) == 1 )
+            i++;
+            if ( i < argc - 2 )
             {
-                nomFichierLog = argv[3];
-                defautPourUneHeure(nomFichierLog,heure);
+                nomFichierGraph = argv[i];
             }
             else
             {
                 cerr << "Commande invalide." << endl;
+                exit(1);
+            }
+        }
+        else if (strcmp(argv[i],"-e")==0)
+        {
+            exclusion = true;
+        }
+        else if (strcmp(argv[i],"-t")==0)
+        {
+            i++;
+            if ( i < argc - 2 )
+            {
+                if ( sscanf(argv[i],"%d",&heure) != 1 && heure < 0 && heure > 24 )
+                {
+                    cerr << "Commande invalide." << endl;
+                    exit(1);
+                }
+            }
+            else
+            {
+                cerr << "Commande invalide." << endl;
+                exit(1);
             }
         }
         else
         {
-             cerr << "Commande invalide." << endl;
+            cerr << "Commande invalide." << endl;
+            exit(1);
         }
-        break;
-
-    default :
-        cerr << "Commande invalide." << endl;
-        break;
     }
+
+//    cout << "nomFichierLog : " << nomFichierLog << endl;
+//    cout << "nomFichierGraph : " << nomFichierGraph << endl;
+//    cout << "serverAdress : " << serverAdress << endl;
+//    cout << "heure : " << heure << endl;
+//    cout << "exclusion : " << exclusion << endl;
+
 	return 0;
 }
 
@@ -107,9 +118,34 @@ void defaut ( string nomFichierLog )
     cout<<"defaut"<<endl;
 }
 
-void creerGraphe ( string nomFichierLog, string nomFichierGraphe )
+void creerGraphe ( GraphDocuments graph, string nomFichierGraphe )
 {
     cout<<"creerGraphe"<<endl;
+//    ofstream fichier(nomFichierGraphe,ios::out | ios::trunc);
+//    if(fichier)
+//    {
+//        fichier << "digraph {" << endl;
+
+//        vector<Document> documents = graph.Documents();
+
+//        for ( vector<Document>::iterator itv = documents.begin(); itv != documents.end(); itv++ )
+//        {
+//            fichier << itv->CheminAccesRessource() << ";" << endl;
+//            for ( map<Document,NombreDeHits>::iterator itm = itv->DocumentsAtteignables().begin(); itm != itv->DocumentsAtteignables().end(); itm++ )
+//            {
+//                fichier << itv.CheminAccesRessource() << " -> " <<
+//                      itm->first.CheminAccesRessource() << " [label=\"" <<
+//                      itm->seconde.NombreDeHitsTotal(true) << "\"];" << endl;
+//            }
+//        }
+
+//        fichier << "}" << endl;
+//        fichier.close();
+//    }
+//    else
+//    {
+//        cerr << "Impossible d'ouvrir " << nomFichierLog << " !" <<endl;
+//    }
 }
 
 void defautAvecExclusion ( string nomFichierLog )
