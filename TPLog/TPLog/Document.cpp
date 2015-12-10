@@ -52,6 +52,14 @@ using namespace std;
 	 }
 	 else
 	 {
+		 if (uneLigne.status < 300)
+		 {
+			 unNombreDeHits.nombreDeHitsReussisParHeure[uneLigne.date.heure]++;
+		 }
+		 else
+		 {
+			 unNombreDeHits.nombreDeHitsEchouesParHeure[uneLigne.date.heure]++;
+		 }
 		 documentAtteignable.insert(make_pair(unDoc, unNombreDeHits));
 	 }
  }
