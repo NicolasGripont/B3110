@@ -44,15 +44,20 @@ public:
 	// Contrat : Aucun (ptet qu'il ne soit pas déjà dans les docs ateignables)
 	//
 
-
+	string CheminAccesRessource();
 
 	//------------------------------------------------- Surcharge d'opérateurs
 	Document & operator = (const Document & unDocument);
 	// Mode d'emploi :
-	//
+	// 
 	// Contrat :
 	//
 
+	bool operator < (const Document & unDocument) const;
+
+	bool operator == (const Document & unDocument) const;
+
+	bool operator > (const Document & unDocument) const;
 
 	//-------------------------------------------- Constructeurs - destructeur
 	Document(const Document & unDocument);
@@ -83,7 +88,7 @@ protected:
 	string nomDomaine;
 	string cheminAccesRessource;
 	NombreDeHits nbHits;
-	typedef map<string, Document> maap;
+	typedef map<Document, NombreDeHits> maap;
 	maap documentAtteignable;
 	
 };
