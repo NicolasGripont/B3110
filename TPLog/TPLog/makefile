@@ -41,7 +41,6 @@ Document.o : Document.h NombreDeHits.h NombreDeHits.cpp $(MAKEFILE)
 GraphDocuments.o : GraphDocuments.h Document.h Document.cpp NombreDeHits.h NombreDeHits.cpp $(MAKEFILE)
 NombreDeHits.o : NombreDeHits.h $(MAKEFILE)
 
-
 TestLog.o : TestLog.h LogParser.h LogParser.cpp LogLine.h LogLine.cpp Date.h Date.cpp $(MAKEFILE)
 
 $(CLEAN) :

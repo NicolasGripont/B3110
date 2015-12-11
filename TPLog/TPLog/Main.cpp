@@ -38,6 +38,7 @@ void creerGraphe ( const GraphDocuments & graph, const string & nomFichierGraphe
 GraphDocuments* creerGraphe ( const string & fichierLog );
 void defautAvecExclusion ( const string & nomFichierLog );
 void defautPourUneHeure ( const string & nomFichierLog, int heure );
+
 //faire une fonction man de ce programme si erreur commande
 
 
@@ -48,7 +49,6 @@ int main (int argc, char* argv[])
     string serverAdress = "";
     int heure = -1;
     bool exclusion = false;
-
 
     cout << "argc = " << argc << endl;
 
@@ -115,14 +115,14 @@ int main (int argc, char* argv[])
 }
 
 
-void defaut (const string &nomFichierLog )
+void defaut ( string nomFichierLog )
 {
     cout<<"defaut"<<endl;
 }
 
-void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichierGraphe )
+void creerGraphe ( GraphDocuments graph, string nomFichierGraphe )
 {
-    cout<<"creerFichierGraphe"<<endl;
+    cout<<"creerGraphe"<<endl;
 //    ofstream fichier(nomFichierGraphe,ios::out | ios::trunc);
 //    if(fichier)
 //    {
@@ -150,25 +150,26 @@ void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichie
 //    }
 }
 
-GraphDocuments* creerGraphe ( const string & fichierLog )
-{
-    GraphDocuments *graph = new GraphDocuments();
-    cout<<"creerGraphe"<<endl;
-    ifstream fichier(fichierLog,ios::in);
-    if(fichier)
-    {
-        string logLine;
-        while ( getline(fichier, logLine) )
-        {
-            graph->TraiterLogLine(logLine);
-        }
-    }
-    else
-    {
-        cerr << "Impossible d'ouvrir " << fichierLog << " !" <<endl;
-    }
-    return graph;
-}
+
+//GraphDocuments* creerGraphe ( const string & fichierLog )
+//{
+//    GraphDocuments *graph = new GraphDocuments();
+//    cout<<"creerGraphe"<<endl;
+//    ifstream fichier(fichierLog,ios::in);
+//    if(fichier)
+//    {
+//        string logLine;
+//        while ( getline(fichier, logLine) )
+//        {
+//            graph->TraiterLogLine(logLine);
+//        }
+//    }
+//    else
+//    {
+//        cerr << "Impossible d'ouvrir " << fichierLog << " !" <<endl;
+//    }
+//    return graph;
+//}
 
 void defautAvecExclusion ( const string & nomFichierLog )
 {

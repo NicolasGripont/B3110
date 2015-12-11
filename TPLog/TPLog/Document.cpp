@@ -11,8 +11,9 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
+
 #include <iostream>
+using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Document.h"
@@ -60,6 +61,11 @@ using namespace std;
  string Document::CheminAccesRessource()
  {
 	 return cheminAccesRessource;
+ }
+
+ const MapDocumentNombreDeHits & Document::DocumentAtteignable() const
+ {
+     return documentAtteignable;
  }
 
  //------------------------------------------------- Surcharge d'opérateurs
@@ -124,7 +130,6 @@ Document::Document(string nD, string cAR) : nomDomaine(nD),
 #endif
 
 } //----- Fin de Document
-
 
 Document::~Document()
 // Algorithme :

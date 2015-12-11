@@ -11,8 +11,9 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
+
 #include <iostream>
+using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "GraphDocuments.h"
@@ -22,19 +23,39 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-void TraiterLogLine ( const string & logLine )
+
+void GraphDocuments::TraiterLogLine ( const string & logLine )
 // Algorithme :
 //
 {
-} //----- Fin de Méthode
 
+} //----- Fin de TraiterLogLine
+
+//const MapDocumentNombreDeHits & GraphDocuments::DocumentNombreDeHits() const
+//// Algorithme :
+////
+//{
+//    return mapDocumentNombreDeHits;
+//} //----- Fin de DocumentNombreDeHits
+
+//const VectorDocuments GraphDocuments::Documents() const
+//// Algorithme :
+////
+//{
+//    VectorDocuments vectorDocuments;
+
+
+
+//    return vectorDocuments;
+//} //----- Fin de Documents
 
 //------------------------------------------------- Surcharge d'opérateurs
-GraphDocuments & GraphDocuments::operator = (const GraphDocuments & unGraphDocuments)
-// Algorithme :
-//
-{
-} //----- Fin de operator =
+
+//GraphDocuments & GraphDocuments::operator = (const GraphDocuments & unGraphDocuments)
+//// Algorithme :
+////
+//{
+//} //----- Fin de operator =
 
 
   //-------------------------------------------- Constructeurs - destructeur

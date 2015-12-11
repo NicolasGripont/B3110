@@ -11,8 +11,8 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
+using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "NombreDeHits.h"
@@ -68,6 +68,15 @@ NombreDeHits & NombreDeHits::operator = (const NombreDeHits & unNombreDeHits)
 // Algorithme :
 //
 {
+    if (this != &unNombreDeHits)
+    {
+        for ( int i = 0; i < NB_HEURE_PAR_JOUR; i++ )
+        {
+            nombreDeHitsEchouesParHeure[i] = unNombreDeHits.nombreDeHitsEchouesParHeure[i];
+            nombreDeHitsReussisParHeure[i] = unNombreDeHits.nombreDeHitsReussisParHeure[i];
+        }
+    }
+    return *this;
 } //----- Fin de operator =
 
 

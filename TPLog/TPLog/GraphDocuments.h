@@ -23,7 +23,7 @@ using namespace std;
 
 //------------------------------------------------------------------ Types
 
-
+typedef vector<Document> VectorDocuments;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <GraphDocuments>
@@ -43,13 +43,24 @@ public:
 	// Contrat :
 	//
 
+     const MapDocumentNombreDeHits & DocumentNombreDeHits() const;
+     // Mode d'emploi :
+     //
+     // Contrat :
+     //
+
+    const VectorDocuments Documents() const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 	//------------------------------------------------- Surcharge d'opérateurs
-	GraphDocuments & operator = (const GraphDocuments & unGraphDocuments);
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+    GraphDocuments & operator = (const GraphDocuments & unGraphDocuments);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 
 	//-------------------------------------------- Constructeurs - destructeur
@@ -78,6 +89,7 @@ protected:
 
 	//----------------------------------------------------- Attributs protégés
 
+    MapDocumentNombreDeHits mapDocumentNombreDeHits;
 };
 
 //--------------------------- Autres définitions dépendantes de <GraphDocuments>

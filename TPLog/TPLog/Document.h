@@ -17,6 +17,8 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
+class Document;
+typedef map<Document, NombreDeHits> MapDocumentNombreDeHits;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Document>
@@ -29,6 +31,9 @@ class Document
 	//----------------------------------------------------------------- PUBLIC
 
 public:
+
+    //------------------------------------------------------------------ Types
+
 	//----------------------------------------------------- Méthodes publiques
 	void MAJHits (const LogLine & uneLigne);
 	// Mode d'emploi :
@@ -38,7 +43,7 @@ public:
 	//
 
 	void MAJDocAtteignable(const LogLine & uneLigne, const Document & unDoc);
-	// Mode d'emploi :
+    // Mode d'emploi :
 	// Met à jour les documents atteignables depuis ce document.
 	//
 	// Contrat : Aucun (ptet qu'il ne soit pas déjà dans les docs ateignables)
@@ -47,11 +52,13 @@ public:
 	string CheminAccesRessource();
 
 	//------------------------------------------------- Surcharge d'opérateurs
-	Document & operator = (const Document & unDocument);
+    Document & operator = (const Document & unDocument);
 	// Mode d'emploi :
 	// 
 	// Contrat :
 	//
+
+    const MapDocumentNombreDeHits & DocumentAtteignable() const;
 
 	bool operator < (const Document & unDocument) const;
 
@@ -66,13 +73,12 @@ public:
 	// Contrat :
 	//
 
-    Document(LogLine uneLigne);
+	Document(LogLine uneLigne);
 	// Mode d'emploi :
 	// Créé un document à partir d'une ligne de logline
 	//
 	// Contrat : aucun.
 	//
-
 
     Document(string nD, string cAR);
     // Mode d'emploi :
@@ -80,7 +86,6 @@ public:
     //
     // Contrat : aucun.
     //
-
 
 	virtual ~Document();
 	// Mode d'emploi :
@@ -97,8 +102,8 @@ protected:
 	string nomDomaine;
 	string cheminAccesRessource;
 	NombreDeHits nbHits;
-    map<Document, NombreDeHits> documentAtteignable;
-	
+    MapDocumentNombreDeHits documentAtteignable;
+
 };
 
 //--------------------------- Autres définitions dépendantes de <Document>
