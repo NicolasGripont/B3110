@@ -23,43 +23,47 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
- void Document::MAJHits ( const LogLine & uneLigne )
+ void Document::MAJHits ( int status, int heure )
  //Algorithme :
 {
-    if (uneLigne.status < 300)
+    if (status/100 == 2)
 	{
-		nbHits.nombreDeHitsReussisParHeure[uneLigne.date.heure]++;
+		nbHits.nombreDeHitsReussisParHeure[heure]++;
 	}
 	else
 	{
-		nbHits.nombreDeHitsEchouesParHeure[uneLigne.date.heure]++;
+		nbHits.nombreDeHitsEchouesParHeure[heure]++;
 	}
 } //----- Fin de MAJ
 
- void Document::MAJDocAtteignable(const LogLine & uneLigne, const Document & unDoc)
+ void Document::MAJDocAtteignable(int status, int heure, Document* unDoc)
  {
      NombreDeHits unNombreDeHits;
 
-     if (documentsAtteignables.find(unDoc) != documentsAtteignables.end())
+	 map<Document*, NombreDeHits>::iterator it = documentsAtteignables.begin();
+
+	 it = documentsAtteignables.find(unDoc);
+
+     if ( it != documentsAtteignables.end())
 	 {
-         if (uneLigne.status < 300)
+         if (status / 100 == 2)
          {
-             documentsAtteignables.find(unDoc)->second.nombreDeHitsReussisParHeure[uneLigne.date.heure]++;
+             it->second.nombreDeHitsReussisParHeure[heure]++;
          }
          else
          {
-             documentsAtteignables.find(unDoc)->second.nombreDeHitsEchouesParHeure[uneLigne.date.heure]++;
+             it->second.nombreDeHitsEchouesParHeure[heure]++;
          }
 	 }
 	 else
      {
-         if (uneLigne.status < 300)
+         if (status / 100 == 2)
          {
-             unNombreDeHits.nombreDeHitsReussisParHeure[uneLigne.date.heure]++;
+             unNombreDeHits.nombreDeHitsReussisParHeure[heure]++;
          }
          else
          {
-             unNombreDeHits.nombreDeHitsEchouesParHeure[uneLigne.date.heure]++;
+             unNombreDeHits.nombreDeHitsEchouesParHeure[heure]++;
          }
          documentsAtteignables.insert(make_pair(unDoc, unNombreDeHits));
      }
@@ -71,7 +75,7 @@ using namespace std;
 	 return cheminAccesRessource;
  }
 
- const MapDocumentNombreDeHits & Document::DocumentsAtteignables() const
+ const map<Document*,NombreDeHits> & Document::DocumentsAtteignables() const
  {
      return documentsAtteignables;
  }
@@ -96,7 +100,7 @@ bool Document::operator<(const Document & unDocument) const
 
 bool Document::operator==(const Document & unDocument) const
 {
-	return cheminAccesRessource == unDocument.cheminAccesRessource;
+	return cheminAccesRessource == unDocument.cheminAccesRessource && nomDomaine == unDocument.nomDomaine;
 }
 
 bool Document::operator>(const Document & unDocument) const

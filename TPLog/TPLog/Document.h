@@ -18,7 +18,7 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 
 //------------------------------------------------------------------ Types
 class Document;
-typedef map<Document, NombreDeHits> MapDocumentNombreDeHits;
+template class map<Document*, NombreDeHits>;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Document>
@@ -35,14 +35,14 @@ public:
     //------------------------------------------------------------------ Types
 
 	//----------------------------------------------------- Méthodes publiques
-	void MAJHits (const LogLine & uneLigne);
+	void MAJHits (int status, int heure);
 	// Mode d'emploi :
 	// Met à jour le nombre de hits du document en fonction du code de retour de la requête
 	//
 	// Contrat : aucun
 	//
 
-    void MAJDocAtteignable(const LogLine & uneLigne, const Document & unDoc);
+    void MAJDocAtteignable(int status, int heure, Document* unDoc);
     // Mode d'emploi :
 	// Met à jour les documents atteignables depuis ce document.
 	//
@@ -50,39 +50,56 @@ public:
 	//
 
     const string & CheminAccesRessource() const;
+	// Mode d'emploi :
+	// Retourne l'attribut cheminAccesRessource
+	// 
+	// Contrat : Aucun.
 
 	//------------------------------------------------- Surcharge d'opérateurs
     Document & operator = (const Document & unDocument);
 	// Mode d'emploi :
-	// 
-	// Contrat :
+	// Surchage de l'opérateur =, copie profonde
+	//
+	// Contrat : Aucun
 	//
 
-    const MapDocumentNombreDeHits & DocumentsAtteignables() const;
+    const map<Document*,NombreDeHits> & DocumentsAtteignables() const;
+	// Mode d'emploi :
+	// Retourne l'attribut documentsAtteignable
+	//
+	// Contrat : Aucun.
 
 	bool operator < (const Document & unDocument) const;
+	// compare sur les attributs cheminAccesRessource (non utilisé)
 
 	bool operator == (const Document & unDocument) const;
+	// Mode d'emploi :
+	// Compare les attributs cheminAccesRessource et nomDomaine des documents
+	//
+	// Contrat : Aucun.
 
 	bool operator > (const Document & unDocument) const;
+	// compare sur les attributs cheminAccesRessource (non utilisé)
+
 
 	//-------------------------------------------- Constructeurs - destructeur
 	Document(const Document & unDocument);
 	// Mode d'emploi (constructeur de copie) :
+	// Constructeur par copie, copie profonde
 	//
 	// Contrat :
 	//
 
 	Document(LogLine uneLigne);
 	// Mode d'emploi :
-	// Créé un document à partir d'une ligne de logline
+	// Créé un document à partir d'une ligne de logline (pas utilisé)
 	//
 	// Contrat : aucun.
 	//
 
     Document(string nD, string cAR);
     // Mode d'emploi :
-    // Constructeur.
+    // Créé un document et initialise les attributs nomDomaine et cheminAccesRessource
     //
     // Contrat : aucun.
     //
@@ -102,7 +119,7 @@ protected:
 	string nomDomaine;
 	string cheminAccesRessource;
 	NombreDeHits nbHits;
-    MapDocumentNombreDeHits documentsAtteignables;
+    map<Document*,NombreDeHits> documentsAtteignables;
 
 };
 
