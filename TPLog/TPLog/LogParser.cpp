@@ -93,8 +93,6 @@ LogLine LogParser::Parser( string line, string domainName)
     return logLine;
 } //----- Fin de Parser
 
-
-
 //------------------------------------------------- Surcharge d'operateurs
 
 
@@ -196,11 +194,16 @@ int LogParser::Mois ( string mois )
 } //----- Fin de Mois
 
 
-string LogParser::SplitReferer (string referer, string domainName)
+string LogParser::SplitReferer ( string referer, string domainName )
 // Algorithme :
 //
 {
     string result;
+
+//    regex r("([a-zA-Z]+://)([a-zA-Z0-9.]+)(/[a-zA-Z0-9./]+)")
+//    match[1] = http://
+//    match[2]= nomDomaine
+//    match[3]=cheminAcces
 
     string tmpRgx = "https?://";
     tmpRgx += domainName;
@@ -209,7 +212,7 @@ string LogParser::SplitReferer (string referer, string domainName)
     regex rgx(tmpRgx);
     smatch match;
 
-    if (std::regex_search(referer, match, rgx))
+    if (regex_search(referer, match, rgx))
     {
         result = match[1];
     }
@@ -219,4 +222,24 @@ string LogParser::SplitReferer (string referer, string domainName)
     }
     return result;
 } //----- Fin de SplitReferer
+
+string LogParser::Extension ( string cheminAcces )
+{
+    string s = "";
+    int i = cheminAcces.length() - 1;
+    while (i > 0 && cheminAcces[i] != '.')
+    {
+        s += cheminAcces[i];
+        i--;
+    }
+    s += '.';
+    reverse(s.begin(), s.end());
+
+    if ( s == cheminAcces )
+    {
+        s = "";
+    }
+
+    return s;
+}
 

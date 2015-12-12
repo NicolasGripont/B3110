@@ -26,6 +26,8 @@ template class map<Document*, NombreDeHits>;
 //
 //------------------------------------------------------------------------
 
+//-------------------------------------------------------------- Fonctions
+
 class Document
 {
 	//----------------------------------------------------------------- PUBLIC
@@ -41,6 +43,15 @@ public:
 	//
 	// Contrat : aucun
 	//
+
+    static bool CompareParNombreDeHitsReussis(Document* a, Document* b);
+    // Mode d'emploi :
+    // Methode permettant de comparer deux documents en fontion du nombre de
+    // hits. Return true si le nombre De Hits Reussis de a est superieur au
+    // nombre De Hits Reussis de b, false sinon.
+    //
+    // Contrat : aucun
+    //
 
     void MAJDocAtteignable(int status, int heure, Document* unDoc);
     // Mode d'emploi :
@@ -69,6 +80,12 @@ public:
 	//
 	// Contrat : Aucun.
 
+    const NombreDeHits & NbHits() const;
+    // Mode d'emploi :
+    // Accesseur en lecture sur le nombre de Hits;
+    //
+    // Contrat : Aucun.
+
 	bool operator < (const Document & unDocument) const;
 	// compare sur les attributs cheminAccesRessource (non utilisé)
 
@@ -88,13 +105,6 @@ public:
 	// Constructeur par copie, copie profonde
 	//
 	// Contrat :
-	//
-
-	Document(LogLine uneLigne);
-	// Mode d'emploi :
-	// Créé un document à partir d'une ligne de logline (pas utilisé)
-	//
-	// Contrat : aucun.
 	//
 
     Document(string nD, string cAR);
@@ -124,6 +134,9 @@ protected:
 };
 
 //--------------------------- Autres définitions dépendantes de <Document>
+
+
+
 
 #endif // Document_H
 

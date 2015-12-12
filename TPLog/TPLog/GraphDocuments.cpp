@@ -24,11 +24,11 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void GraphDocuments::TraiterLogLine ( const string & logLine )
+void GraphDocuments::TraiterLogLine (const string & logLine )
 // Algorithme :
 //
 {
-    LogLine l = LogParser::Parser(logLine,"intranet-if.insa-lyon.fr");
+    LogLine l = LogParser::Parser(logLine,nomDomaine);
 
     Document * documentSource = DocumentPresent(l.domainName,l.sourceFile);
     Document * documentDemande = DocumentPresent(l.domainName,l.requestedURL);
@@ -47,6 +47,11 @@ void GraphDocuments::TraiterLogLine ( const string & logLine )
     documentSource->MAJDocAtteignable(l.status,l.date.heure,documentDemande);
 
 } //----- Fin de TraiterLogLine
+
+void GraphDocuments::TrierParNombreDeHitsReussis()
+{
+    sort(documents.begin(), documents.end(), Document::CompareParNombreDeHitsReussis);
+}
 
 const vector<Document*> & GraphDocuments::Documents() const
 // Algorithme :

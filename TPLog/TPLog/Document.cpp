@@ -23,8 +23,9 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
- void Document::MAJHits ( int status, int heure )
- //Algorithme :
+void Document::MAJHits ( int status, int heure )
+//Algorithme :
+//
 {
     if (status/100 == 2)
 	{
@@ -36,49 +37,62 @@ using namespace std;
 	}
 } //----- Fin de MAJ
 
- void Document::MAJDocAtteignable(int status, int heure, Document* unDoc)
- {
-     NombreDeHits unNombreDeHits;
-
-	 map<Document*, NombreDeHits>::iterator it = documentsAtteignables.begin();
-
-	 it = documentsAtteignables.find(unDoc);
-
-     if ( it != documentsAtteignables.end())
-	 {
-         if (status / 100 == 2)
-         {
-             it->second.nombreDeHitsReussisParHeure[heure]++;
-         }
-         else
-         {
-             it->second.nombreDeHitsEchouesParHeure[heure]++;
-         }
-	 }
-	 else
-     {
-         if (status / 100 == 2)
-         {
-             unNombreDeHits.nombreDeHitsReussisParHeure[heure]++;
-         }
-         else
-         {
-             unNombreDeHits.nombreDeHitsEchouesParHeure[heure]++;
-         }
-         documentsAtteignables.insert(make_pair(unDoc, unNombreDeHits));
-     }
- }
+bool Document::CompareParNombreDeHitsReussis(Document* a, Document* b)
+//Algorithme :
+//
+{
+    return a->nbHits.NombreDeHitsTotal() > b->nbHits.NombreDeHitsTotal();
+} //----- Fin de MAJ
 
 
- const string & Document::CheminAccesRessource() const
- {
-	 return cheminAccesRessource;
- }
+void Document::MAJDocAtteignable(int status, int heure, Document* unDoc)
+{
+    NombreDeHits unNombreDeHits;
 
- const map<Document*,NombreDeHits> & Document::DocumentsAtteignables() const
- {
-     return documentsAtteignables;
- }
+    map<Document*, NombreDeHits>::iterator it = documentsAtteignables.begin();
+
+    it = documentsAtteignables.find(unDoc);
+
+    if ( it != documentsAtteignables.end())
+    {
+        if (status / 100 == 2)
+        {
+         it->second.nombreDeHitsReussisParHeure[heure]++;
+        }
+        else
+        {
+         it->second.nombreDeHitsEchouesParHeure[heure]++;
+        }
+    }
+    else
+    {
+        if (status / 100 == 2)
+        {
+         unNombreDeHits.nombreDeHitsReussisParHeure[heure]++;
+        }
+        else
+        {
+         unNombreDeHits.nombreDeHitsEchouesParHeure[heure]++;
+        }
+        documentsAtteignables.insert(make_pair(unDoc, unNombreDeHits));
+    }
+}
+
+
+const string & Document::CheminAccesRessource() const
+{
+    return cheminAccesRessource;
+}
+
+const map<Document*,NombreDeHits> & Document::DocumentsAtteignables() const
+{
+    return documentsAtteignables;
+}
+
+const NombreDeHits & Document::NbHits() const
+{
+    return nbHits;
+}
 
  //------------------------------------------------- Surcharge d'opérateurs
 Document & Document::operator = (const Document & unDocument)
@@ -120,17 +134,6 @@ Document::Document(const Document & unDocument) : nomDomaine(unDocument.nomDomai
 #endif
 } //----- Fin de Document (constructeur de copie)
 
-
-Document::Document(LogLine uneLigne) : nomDomaine(uneLigne.referer), 
-    cheminAccesRessource(uneLigne.referer), documentsAtteignables(), nbHits()
-// Algorithme :
-//
-{
-#ifdef MAP
-	cout << "Appel au constructeur de <Document>" << endl;
-#endif
-
-} //----- Fin de Document
 
 Document::Document(string nD, string cAR) : nomDomaine(nD),
  cheminAccesRessource(cAR), nbHits(), documentsAtteignables()

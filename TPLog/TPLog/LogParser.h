@@ -101,13 +101,22 @@ protected:
     //
     //
 
-    static string SplitReferer(string referer, string domainName);
+    static string SplitReferer ( string referer, string domainName );
     // Mode d'emploi :
     //
     //
     // Contrat :
     //
     //
+
+    string Extension ( string cheminAcces );
+    // Mode d'emploi :
+    //
+    //
+    // Contrat :
+    //
+    //
+
 
 //----------------------------------------------------- Attributs proteges
 

@@ -43,7 +43,13 @@ public:
     // Ajoute et/ou met a jour les documents en fonction de la ligne de log.
 	//
     // Contrat : ligne de log correctement ecrite.
-	//
+    //
+
+    void TrierParNombreDeHitsReussis ();
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
     const vector<Document*> & Documents() const;
     // Mode d'emploi :

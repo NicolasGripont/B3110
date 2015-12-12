@@ -30,13 +30,11 @@ int main()
 
 #else
 
+const int NB_DOC = 10;
 
-
-using namespace std;
-
-void defaut ( const string & nomFichierLog );
+void defaut ( GraphDocuments & graph, int n );
 void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichierGraphe );
-GraphDocuments* creerGraphe ( const string & fichierLog, const string & serverAdress  );
+void initialiserGraphe (GraphDocuments & graph, const string & fichierLog);
 void defautAvecExclusion ( const string & nomFichierLog );
 void defautPourUneHeure ( const string & nomFichierLog, int heure );
 
@@ -113,42 +111,63 @@ int main (int argc, char* argv[])
 //    cout << "heure : " << heure << endl;
 //    cout << "exclusion : " << exclusion << endl;
 
-    GraphDocuments * graph = creerGraphe(nomFichierLog,serverAdress);
+    GraphDocuments graph(serverAdress);
 
-    creerFichierGraphe(*graph, nomFichierGraph);
+    initialiserGraphe(graph,nomFichierLog);
 
-    delete graph;
+    creerFichierGraphe(graph, nomFichierGraph);
+
+    defaut (graph, NB_DOC);
+
 
 	return 0;
 }
 
 
-void defaut ( string nomFichierLog )
+void defaut ( GraphDocuments & graph , int n)
 {
-    cout<<"defaut"<<endl;
+    int i = 0;
+    graph.TrierParNombreDeHitsReussis();
+    const vector<Document*> documents = graph.Documents();
+    vector<Document*>::const_iterator itv = documents.begin();
+
+    while ( itv != documents.end() && i < n )
+    {
+        cout << (*itv)->CheminAccesRessource() << " : " << (*itv)->NbHits().NombreDeHitsTotal() <<endl;
+        itv++;
+        i++;
+    }
 }
 
 void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichierGraphe )
 {
-    cout<<"creerGraphe"<<endl;
     ofstream fichier(nomFichierGraphe,ios::out | ios::trunc);
     if(fichier)
     {
         fichier << "digraph {" << endl;
 
         const vector<Document*> documents = graph.Documents();
+        int i = 0;
+        map<Document*,int> positions;
+
+        for ( vector<Document*>::const_iterator itv = documents.begin(); itv != documents.end(); itv++, i++)
+        {
+            fichier << "node" << i << "[label=\"" << (*itv)->CheminAccesRessource() << "\"];" << endl;
+            positions.insert(make_pair((*itv),i));
+        }
 
         for ( vector<Document*>::const_iterator itv = documents.begin(); itv != documents.end(); itv++ )
         {
-            fichier << (*itv)->CheminAccesRessource() << ";" << endl;
             for ( map<Document*,NombreDeHits>::const_iterator itm = (*itv)->DocumentsAtteignables().begin(); itm != (*itv)->DocumentsAtteignables().end(); itm++ )
             {
-                fichier << (*itv)->CheminAccesRessource() << " -> " <<
-                      itm->first->CheminAccesRessource() << " [label=\"" <<
-                      itm->second.NombreDeHitsTotal(true) << "\"];" << endl;
+                if ( itm->second.NombreDeHitsTotal(true) > 0 )
+                {
+                    fichier << "node" << positions[(*itv)] << " -> " <<
+                          "node" << positions[itm->first] << " [label=\"" <<
+                          itm->second.NombreDeHitsTotal(true) << "\"];" << endl;
+                }
             }
         }
-
         fichier << "}" << endl;
         fichier.close();
     }
@@ -159,17 +178,15 @@ void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichie
 }
 
 
-GraphDocuments* creerGraphe (const string & fichierLog , const string & serverAdress )
+void initialiserGraphe (GraphDocuments & graph, const string & fichierLog)
 {
-    cout<<"creerGraphe"<<endl;
-    GraphDocuments *graph = new GraphDocuments(serverAdress);
     ifstream fichier(fichierLog,ios::in);
     if(fichier)
     {
         string logLine;
         while ( getline(fichier, logLine) )
         {
-            graph->TraiterLogLine(logLine);
+            graph.TraiterLogLine(logLine);
         }
         fichier.close();
     }
@@ -177,17 +194,14 @@ GraphDocuments* creerGraphe (const string & fichierLog , const string & serverAd
     {
         cerr << "Impossible d'ouvrir " << fichierLog << " !" <<endl;
     }
-    return graph;
 }
 
 void defautAvecExclusion ( const string & nomFichierLog )
 {
-    cout<<"defautAvecExclusion"<<endl;
 }
 
 void defautPourUneHeure ( const string & nomFichierLog, int heure )
 {
-    cout<<"defautPourUneHeure"<<endl;
 }
 
 #endif
