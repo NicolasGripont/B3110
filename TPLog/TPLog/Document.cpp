@@ -26,7 +26,7 @@ using namespace std;
  void Document::MAJHits ( const LogLine & uneLigne )
  //Algorithme :
 {
-	if (uneLigne.status < 300)
+    if (uneLigne.status < 300)
 	{
 		nbHits.nombreDeHitsReussisParHeure[uneLigne.date.heure]++;
 	}
@@ -38,34 +38,42 @@ using namespace std;
 
  void Document::MAJDocAtteignable(const LogLine & uneLigne, const Document & unDoc)
  {
-	 NombreDeHits unNombreDeHits;
+     NombreDeHits unNombreDeHits;
 
-	 if (documentAtteignable.find(unDoc) != documentAtteignable.end())
+     if (documentsAtteignables.find(unDoc) != documentsAtteignables.end())
 	 {
-		 if (uneLigne.status < 300)
-		 {
-			 documentAtteignable.find(unDoc)->second.nombreDeHitsReussisParHeure[uneLigne.date.heure]++;
-		 }
-		 else
-		 {
-			 documentAtteignable.find(unDoc)->second.nombreDeHitsEchouesParHeure[uneLigne.date.heure]++;
-		 }
+         if (uneLigne.status < 300)
+         {
+             documentsAtteignables.find(unDoc)->second.nombreDeHitsReussisParHeure[uneLigne.date.heure]++;
+         }
+         else
+         {
+             documentsAtteignables.find(unDoc)->second.nombreDeHitsEchouesParHeure[uneLigne.date.heure]++;
+         }
 	 }
 	 else
-	 {
-		 documentAtteignable.insert(make_pair(unDoc, unNombreDeHits));
-	 }
+     {
+         if (uneLigne.status < 300)
+         {
+             unNombreDeHits.nombreDeHitsReussisParHeure[uneLigne.date.heure]++;
+         }
+         else
+         {
+             unNombreDeHits.nombreDeHitsEchouesParHeure[uneLigne.date.heure]++;
+         }
+         documentsAtteignables.insert(make_pair(unDoc, unNombreDeHits));
+     }
  }
 
 
- string Document::CheminAccesRessource()
+ const string & Document::CheminAccesRessource() const
  {
 	 return cheminAccesRessource;
  }
 
- const MapDocumentNombreDeHits & Document::DocumentAtteignable() const
+ const MapDocumentNombreDeHits & Document::DocumentsAtteignables() const
  {
-     return documentAtteignable;
+     return documentsAtteignables;
  }
 
  //------------------------------------------------- Surcharge d'opérateurs
@@ -75,7 +83,7 @@ Document & Document::operator = (const Document & unDocument)
 {
 	nomDomaine = unDocument.nomDomaine;
 	cheminAccesRessource = unDocument.cheminAccesRessource;
-	documentAtteignable = unDocument.documentAtteignable;
+    documentsAtteignables = unDocument.documentsAtteignables;
 	nbHits = NombreDeHits(unDocument.nbHits);
 	return *this;
 } //----- Fin de operator =
@@ -98,7 +106,7 @@ bool Document::operator>(const Document & unDocument) const
 
 //-------------------------------------------- Constructeurs - destructeur
 Document::Document(const Document & unDocument) : nomDomaine(unDocument.nomDomaine), 
-	cheminAccesRessource(unDocument.cheminAccesRessource), documentAtteignable(unDocument.documentAtteignable),
+    cheminAccesRessource(unDocument.cheminAccesRessource), documentsAtteignables(unDocument.documentsAtteignables),
 	nbHits(unDocument.nbHits)
 // Algorithme :
 //
@@ -110,7 +118,7 @@ Document::Document(const Document & unDocument) : nomDomaine(unDocument.nomDomai
 
 
 Document::Document(LogLine uneLigne) : nomDomaine(uneLigne.referer), 
-	cheminAccesRessource(uneLigne.referer), documentAtteignable(), nbHits()
+    cheminAccesRessource(uneLigne.referer), documentsAtteignables(), nbHits()
 // Algorithme :
 //
 {
@@ -121,7 +129,7 @@ Document::Document(LogLine uneLigne) : nomDomaine(uneLigne.referer),
 } //----- Fin de Document
 
 Document::Document(string nD, string cAR) : nomDomaine(nD),
- cheminAccesRessource(cAR), nbHits(), documentAtteignable()
+ cheminAccesRessource(cAR), nbHits(), documentsAtteignables()
 // Algorithme :
 //
 {

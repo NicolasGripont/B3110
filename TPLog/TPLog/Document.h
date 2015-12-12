@@ -42,14 +42,14 @@ public:
 	// Contrat : aucun
 	//
 
-	void MAJDocAtteignable(const LogLine & uneLigne, const Document & unDoc);
+    void MAJDocAtteignable(const LogLine & uneLigne, const Document & unDoc);
     // Mode d'emploi :
 	// Met à jour les documents atteignables depuis ce document.
 	//
 	// Contrat : Aucun (ptet qu'il ne soit pas déjà dans les docs ateignables)
 	//
 
-	string CheminAccesRessource();
+    const string & CheminAccesRessource() const;
 
 	//------------------------------------------------- Surcharge d'opérateurs
     Document & operator = (const Document & unDocument);
@@ -58,7 +58,7 @@ public:
 	// Contrat :
 	//
 
-    const MapDocumentNombreDeHits & DocumentAtteignable() const;
+    const MapDocumentNombreDeHits & DocumentsAtteignables() const;
 
 	bool operator < (const Document & unDocument) const;
 
@@ -102,7 +102,7 @@ protected:
 	string nomDomaine;
 	string cheminAccesRessource;
 	NombreDeHits nbHits;
-    MapDocumentNombreDeHits documentAtteignable;
+    MapDocumentNombreDeHits documentsAtteignables;
 
 };
 

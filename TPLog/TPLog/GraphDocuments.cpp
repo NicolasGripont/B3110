@@ -17,7 +17,7 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "GraphDocuments.h"
-
+#include "LogParser.h"
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -28,8 +28,36 @@ void GraphDocuments::TraiterLogLine ( const string & logLine )
 // Algorithme :
 //
 {
-
+    LogLine l = LogParser::Parser(logLine);
+    Document document(l.referer,l.referer);
+    NombreDeHits nbHits;
+    map<Document, NombreDeHits>::iterator it = mapDocumentNombreDeHits.find(document);
+    if ( it == mapDocumentNombreDeHits.end() )
+    {
+        if (l.status / 100 == 2) // succes
+        {
+            nbHits.nombreDeHitsReussisParHeure[l.date.heure]++;
+        }
+        else
+        {
+            nbHits.nombreDeHitsEchouesParHeure[l.date.heure]++;
+        }
+        mapDocumentNombreDeHits.insert(make_pair(document,nbHits));
+    }
+    else
+    {
+        if (l.status / 100 == 2) // succes
+        {
+            it->second.nombreDeHitsReussisParHeure[l.date.heure]++;
+        }
+        else
+        {
+            it->second.nombreDeHitsEchouesParHeure[l.date.heure]++;
+        }
+    }
 } //----- Fin de TraiterLogLine
+
+
 
 //const MapDocumentNombreDeHits & GraphDocuments::DocumentNombreDeHits() const
 //// Algorithme :
@@ -38,16 +66,18 @@ void GraphDocuments::TraiterLogLine ( const string & logLine )
 //    return mapDocumentNombreDeHits;
 //} //----- Fin de DocumentNombreDeHits
 
-//const VectorDocuments GraphDocuments::Documents() const
-//// Algorithme :
-////
-//{
-//    VectorDocuments vectorDocuments;
+const vector<Document> GraphDocuments::Documents() const
+// Algorithme :
+//
+{
+    vector<Document> vectorDocuments;
 
-
-
-//    return vectorDocuments;
-//} //----- Fin de Documents
+    for ( map<Document, NombreDeHits>::const_iterator it = mapDocumentNombreDeHits.begin(); it != mapDocumentNombreDeHits.end(); it++ )
+    {
+        vectorDocuments.push_back(it->first);
+    }
+    return vectorDocuments;
+} //----- Fin de Documents
 
 //------------------------------------------------- Surcharge d'opérateurs
 
@@ -59,22 +89,27 @@ void GraphDocuments::TraiterLogLine ( const string & logLine )
 
 
   //-------------------------------------------- Constructeurs - destructeur
-GraphDocuments::GraphDocuments(const GraphDocuments & unGraphDocuments)
+GraphDocuments::GraphDocuments(const GraphDocuments & unGraphDocuments) :
+    mapDocumentNombreDeHits(unGraphDocuments.mapDocumentNombreDeHits)
 // Algorithme :
 //
 {
 #ifdef MAP
-	cout << "Appel au constructeur de copie de <GraphDocuments>" << endl;
+    cout << "Appel au constructeur de copie de <GraphDocuments>" << endl;
 #endif
+
+    //copie profonde
+
 } //----- Fin de GraphDocuments (constructeur de copie)
 
 
-GraphDocuments::GraphDocuments()
+GraphDocuments::GraphDocuments() :
+    mapDocumentNombreDeHits()
 // Algorithme :
 //
 {
 #ifdef MAP
-	cout << "Appel au constructeur de <GraphDocuments>" << endl;
+    cout << "Appel au constructeur de <GraphDocuments>" << endl;
 #endif
 } //----- Fin de GraphDocuments
 

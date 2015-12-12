@@ -71,7 +71,14 @@ LogLine LogParser::Parser( string line )
     logLine.status = stoi(tmp);
 
     getline(iss,tmp,separateur);
-    logLine.bytesNumber = stoi(tmp);
+    if (tmp != "-")
+    {
+        logLine.bytesNumber = stoi(tmp);
+    }
+    else
+    {
+        logLine.bytesNumber = 0;
+    }
 
     separateur = '"';
     getline(iss,tmp,separateur);

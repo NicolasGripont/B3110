@@ -23,7 +23,8 @@ using namespace std;
 
 //------------------------------------------------------------------ Types
 
-typedef vector<Document> VectorDocuments;
+template class vector<Document*>;
+template class map<Document, NombreDeHits>;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <GraphDocuments>
@@ -39,20 +40,25 @@ public:
 	//----------------------------------------------------- Méthodes publiques
      void TraiterLogLine ( const string & logLine );
 	// Mode d'emploi :
+    // Methode permettant de traiter une ligne de log.
+    // Ajoute et/ou met a jour les documents en fonction de la ligne de log.
 	//
-	// Contrat :
+    // Contrat : ligne de log correctement ecrite.
 	//
 
-     const MapDocumentNombreDeHits & DocumentNombreDeHits() const;
+     const map<Document, NombreDeHits> & DocumentNombreDeHits() const;
      // Mode d'emploi :
+     // Méthode retournant la map contenant les documents et leur nombre
+     // de hits associé
      //
-     // Contrat :
+     // Contrat : aucun.
      //
 
-    const VectorDocuments Documents() const;
+    const vector<Document> Documents() const;
     // Mode d'emploi :
+    // Methode permettant de récupérer un vector contenant tous les documents du graph
     //
-    // Contrat :
+    // Contrat : aucun.
     //
 
 	//------------------------------------------------- Surcharge d'opérateurs
@@ -71,9 +77,9 @@ public:
 	//
 
 	GraphDocuments();
-	// Mode d'emploi :
+    // Mode d'emploi : Constructeur.
 	//
-	// Contrat :
+    // Contrat : aucun.
 	//
 
 	virtual ~GraphDocuments();
@@ -89,7 +95,7 @@ protected:
 
 	//----------------------------------------------------- Attributs protégés
 
-    MapDocumentNombreDeHits mapDocumentNombreDeHits;
+    map<Document,NombreDeHits> mapDocumentNombreDeHits;
 };
 
 //--------------------------- Autres définitions dépendantes de <GraphDocuments>

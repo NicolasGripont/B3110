@@ -33,7 +33,7 @@ struct NombreDeHits
 	// Contrat :
 	//
 
-	int NombreDeHitsTotal(bool UniquementReussi);
+    int NombreDeHitsTotal( bool UniquementReussi = true ) const;
 
 	//------------------------------------------------- Surcharge d'opérateurs
 	NombreDeHits & operator = (const NombreDeHits & unNombreDeHits);

@@ -31,34 +31,35 @@ using namespace std;
 
 int NombreDeHits::NombreDeHitsPourUneHeure(int uneHeure, bool UniquementReussi)
 {
+    int result;
 	if (uneHeure >= NB_HEURE_PAR_JOUR)
 	{
-		return -1;
+        result =  -1;
 	}
-	if (UniquementReussi)
+    else if (UniquementReussi)
 	{
-		return nombreDeHitsReussisParHeure[uneHeure];
+        result = nombreDeHitsReussisParHeure[uneHeure];
 	}
 	else
 	{
-		return nombreDeHitsEchouesParHeure[uneHeure] + nombreDeHitsReussisParHeure[uneHeure];
+        result = nombreDeHitsEchouesParHeure[uneHeure] + nombreDeHitsReussisParHeure[uneHeure];
 	}
+    return result;
 }
 
-int NombreDeHits::NombreDeHitsTotal(bool UniquementReussi)
+int NombreDeHits::NombreDeHitsTotal(bool UniquementReussi) const
 {
 	int s = 0;
-	for (int i = 0; i < NB_HEURE_PAR_JOUR; i++)
+    for (int i = 0; i < NB_HEURE_PAR_JOUR; i++)
 	{
 		s += nombreDeHitsReussisParHeure[i];
 	}
-	if (UniquementReussi)
+    if ( !UniquementReussi )
 	{
-		return s;
-	}
-	for (int i = 0; i < NB_HEURE_PAR_JOUR; i++)
-	{
-		s += nombreDeHitsEchouesParHeure[i];
+        for (int i = 0; i < NB_HEURE_PAR_JOUR; i++)
+        {
+            s += nombreDeHitsEchouesParHeure[i];
+        }
 	}
 	return s;
 }
@@ -88,6 +89,11 @@ NombreDeHits::NombreDeHits(const NombreDeHits & unNombreDeHits)
 #ifdef MAP
 	cout << "Appel au constructeur de copie de <NombreDeHits>" << endl;
 #endif
+    for ( int i = 0; i < NB_HEURE_PAR_JOUR; i++ )
+    {
+        nombreDeHitsReussisParHeure[i] = unNombreDeHits.nombreDeHitsReussisParHeure[i];
+        nombreDeHitsEchouesParHeure[i] = unNombreDeHits.nombreDeHitsEchouesParHeure[i];
+    }
 } //----- Fin de NombreDeHits (constructeur de copie)
 
 
@@ -98,6 +104,11 @@ NombreDeHits::NombreDeHits()
 #ifdef MAP
 	cout << "Appel au constructeur de <NombreDeHits>" << endl;
 #endif
+    for ( int i = 0; i < NB_HEURE_PAR_JOUR; i++ )
+    {
+        nombreDeHitsReussisParHeure[i] = 0;
+        nombreDeHitsEchouesParHeure[i] = 0;
+    }
 } //----- Fin de NombreDeHits
 
 

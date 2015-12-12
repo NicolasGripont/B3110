@@ -34,7 +34,7 @@ int main()
 using namespace std;
 
 void defaut ( const string & nomFichierLog );
-void creerGraphe ( const GraphDocuments & graph, const string & nomFichierGraphe );
+void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichierGraphe );
 GraphDocuments* creerGraphe ( const string & fichierLog );
 void defautAvecExclusion ( const string & nomFichierLog );
 void defautPourUneHeure ( const string & nomFichierLog, int heure );
@@ -105,11 +105,18 @@ int main (int argc, char* argv[])
         }
     }
 
+
 //    cout << "nomFichierLog : " << nomFichierLog << endl;
 //    cout << "nomFichierGraph : " << nomFichierGraph << endl;
 //    cout << "serverAdress : " << serverAdress << endl;
 //    cout << "heure : " << heure << endl;
 //    cout << "exclusion : " << exclusion << endl;
+
+    GraphDocuments * graph = creerGraphe(nomFichierLog);
+
+    creerFichierGraphe(*graph, nomFichierGraph);
+
+    delete graph;
 
 	return 0;
 }
@@ -120,56 +127,57 @@ void defaut ( string nomFichierLog )
     cout<<"defaut"<<endl;
 }
 
-void creerGraphe ( GraphDocuments graph, string nomFichierGraphe )
+void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichierGraphe )
 {
     cout<<"creerGraphe"<<endl;
-//    ofstream fichier(nomFichierGraphe,ios::out | ios::trunc);
-//    if(fichier)
-//    {
-//        fichier << "digraph {" << endl;
+    ofstream fichier(nomFichierGraphe,ios::out | ios::trunc);
+    if(fichier)
+    {
+        fichier << "digraph {" << endl;
 
-//        vector<Document> documents = graph.Documents();
+        const vector<Document> documents = graph.Documents();
 
-//        for ( vector<Document>::iterator itv = documents.begin(); itv != documents.end(); itv++ )
-//        {
-//            fichier << itv->CheminAccesRessource() << ";" << endl;
-//            for ( map<Document,NombreDeHits>::iterator itm = itv->DocumentsAtteignables().begin(); itm != itv->DocumentsAtteignables().end(); itm++ )
+        for ( vector<Document>::const_iterator itv = documents.begin(); itv != documents.end(); itv++ )
+        {
+            fichier << itv->CheminAccesRessource() << ";" << endl;
+//            for ( map<Document*,NombreDeHits*>::const_iterator itm = itv->DocumentsAtteignables().begin(); itm != itv->DocumentsAtteignables().end(); itm++ )
 //            {
-//                fichier << itv.CheminAccesRessource() << " -> " <<
+//                fichier << itv->CheminAccesRessource() << " -> " <<
 //                      itm->first.CheminAccesRessource() << " [label=\"" <<
-//                      itm->seconde.NombreDeHitsTotal(true) << "\"];" << endl;
+//                      itm->second.NombreDeHitsTotal(true) << "\"];" << endl;
 //            }
-//        }
+        }
 
-//        fichier << "}" << endl;
-//        fichier.close();
-//    }
-//    else
-//    {
-//        cerr << "Impossible d'ouvrir " << nomFichierLog << " !" <<endl;
-//    }
+        fichier << "}" << endl;
+        fichier.close();
+    }
+    else
+    {
+        cerr << "Impossible d'ouvrir " << nomFichierGraphe << " !" <<endl;
+    }
 }
 
 
-//GraphDocuments* creerGraphe ( const string & fichierLog )
-//{
-//    GraphDocuments *graph = new GraphDocuments();
-//    cout<<"creerGraphe"<<endl;
-//    ifstream fichier(fichierLog,ios::in);
-//    if(fichier)
-//    {
-//        string logLine;
-//        while ( getline(fichier, logLine) )
-//        {
-//            graph->TraiterLogLine(logLine);
-//        }
-//    }
-//    else
-//    {
-//        cerr << "Impossible d'ouvrir " << fichierLog << " !" <<endl;
-//    }
-//    return graph;
-//}
+GraphDocuments* creerGraphe ( const string & fichierLog )
+{
+    GraphDocuments *graph = new GraphDocuments();
+    cout<<"creerGraphe"<<endl;
+    ifstream fichier(fichierLog,ios::in);
+    if(fichier)
+    {
+        string logLine;
+        while ( getline(fichier, logLine) )
+        {
+            graph->TraiterLogLine(logLine);
+        }
+        fichier.close();
+    }
+    else
+    {
+        cerr << "Impossible d'ouvrir " << fichierLog << " !" <<endl;
+    }
+    return graph;
+}
 
 void defautAvecExclusion ( const string & nomFichierLog )
 {
