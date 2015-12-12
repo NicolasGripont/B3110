@@ -10,6 +10,7 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 #include "NombreDeHits.h"
 #include "LogParser.h"
 
+#include <string>
 #include <iostream>
 #include <fstream>
 using namespace std;
