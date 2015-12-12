@@ -28,55 +28,31 @@ void GraphDocuments::TraiterLogLine ( const string & logLine )
 // Algorithme :
 //
 {
-    LogLine l = LogParser::Parser(logLine);
-    Document document(l.referer,l.referer);
-    NombreDeHits nbHits;
-    map<Document, NombreDeHits>::iterator it = mapDocumentNombreDeHits.find(document);
-    if ( it == mapDocumentNombreDeHits.end() )
+    LogLine l = LogParser::Parser(logLine,"intranet-if.insa-lyon.fr");
+
+    Document * documentSource = DocumentPresent(l.domainName,l.sourceFile);
+    Document * documentDemande = DocumentPresent(l.domainName,l.requestedURL);
+    if ( documentSource == nullptr )
     {
-        if (l.status / 100 == 2) // succes
-        {
-            nbHits.nombreDeHitsReussisParHeure[l.date.heure]++;
-        }
-        else
-        {
-            nbHits.nombreDeHitsEchouesParHeure[l.date.heure]++;
-        }
-        mapDocumentNombreDeHits.insert(make_pair(document,nbHits));
+        documentSource = new Document(l.domainName,l.sourceFile);
+        documents.push_back(documentSource);
     }
-    else
+    if ( documentDemande == nullptr )
     {
-        if (l.status / 100 == 2) // succes
-        {
-            it->second.nombreDeHitsReussisParHeure[l.date.heure]++;
-        }
-        else
-        {
-            it->second.nombreDeHitsEchouesParHeure[l.date.heure]++;
-        }
+        documentDemande = new Document(l.domainName,l.requestedURL);
+        documents.push_back(documentDemande);
     }
+    documentDemande->MAJHits(l.status,l.date.heure);
+
+    documentSource->MAJDocAtteignable(l.status,l.date.heure,documentDemande);
+
 } //----- Fin de TraiterLogLine
 
-
-
-//const MapDocumentNombreDeHits & GraphDocuments::DocumentNombreDeHits() const
-//// Algorithme :
-////
-//{
-//    return mapDocumentNombreDeHits;
-//} //----- Fin de DocumentNombreDeHits
-
-const vector<Document> GraphDocuments::Documents() const
+const vector<Document*> & GraphDocuments::Documents() const
 // Algorithme :
 //
 {
-    vector<Document> vectorDocuments;
-
-    for ( map<Document, NombreDeHits>::const_iterator it = mapDocumentNombreDeHits.begin(); it != mapDocumentNombreDeHits.end(); it++ )
-    {
-        vectorDocuments.push_back(it->first);
-    }
-    return vectorDocuments;
+    return documents;
 } //----- Fin de Documents
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -90,21 +66,25 @@ const vector<Document> GraphDocuments::Documents() const
 
   //-------------------------------------------- Constructeurs - destructeur
 GraphDocuments::GraphDocuments(const GraphDocuments & unGraphDocuments) :
-    mapDocumentNombreDeHits(unGraphDocuments.mapDocumentNombreDeHits)
+    documents(),
+    nomDomaine(unGraphDocuments.nomDomaine)
 // Algorithme :
 //
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <GraphDocuments>" << endl;
 #endif
-
-    //copie profonde
-
+    for ( vector<Document*>::const_iterator it = unGraphDocuments.documents.begin(); it != unGraphDocuments.documents.end(); it++ )
+    {
+        Document *tmp = new Document(*(*it));
+        documents.push_back(tmp);
+    }
 } //----- Fin de GraphDocuments (constructeur de copie)
 
 
-GraphDocuments::GraphDocuments() :
-    mapDocumentNombreDeHits()
+GraphDocuments::GraphDocuments(string nD) :
+    documents(),
+    nomDomaine (nD)
 // Algorithme :
 //
 {
@@ -121,10 +101,32 @@ GraphDocuments::~GraphDocuments()
 #ifdef MAP
 	cout << "Appel au destructeur de <GraphDocuments>" << endl;
 #endif
+    for ( vector<Document*>::iterator it = documents.begin(); it != documents.end(); it++ )
+    {
+        delete *it;
+    }
 } //----- Fin de ~GraphDocuments
 
 
   //------------------------------------------------------------------ PRIVE
 
   //----------------------------------------------------- Méthodes protégées
+
+Document* GraphDocuments::DocumentPresent(string nomDomaine, string chemineAccesFichier )
+{
+    Document *document = nullptr;
+    Document tmp(nomDomaine,chemineAccesFichier);
+    for ( vector<Document*>::iterator it = documents.begin(); it != documents.end(); it++ )
+    {
+        if ( *(*it) == tmp )
+        {
+            document = *it;
+        }
+    }
+    return document;
+}
+
+
+
+
 

@@ -34,7 +34,8 @@ void  LogLine::Afficher ( )
     cout << httpVersion << endl;
     cout << status << endl;
     cout << bytesNumber <<endl;
-    cout << referer << endl;
+    cout << domainName << endl;
+    cout << sourceFile << endl;
     cout << navigator << endl;
 } //----- Fin de Methode
 
@@ -53,7 +54,8 @@ LogLine & LogLine::operator = ( const LogLine & unLogLine )
     httpVersion = unLogLine.httpVersion;
     status = unLogLine.status;
     bytesNumber = unLogLine.bytesNumber;
-    referer = unLogLine.referer;
+    domainName = unLogLine.domainName;
+    sourceFile = unLogLine.sourceFile;
     navigator = unLogLine.navigator;
     return *this;
 } //----- Fin de operator =
@@ -67,7 +69,8 @@ LogLine::LogLine ( const LogLine & unLogLine ) :
     requestedURL(unLogLine.requestedURL),
     httpVersion(unLogLine.httpVersion),
     status(unLogLine.status), bytesNumber(unLogLine.bytesNumber),
-    referer(unLogLine.referer), navigator(unLogLine.navigator)
+    domainName(unLogLine.domainName), sourceFile(unLogLine.sourceFile),
+    navigator(unLogLine.navigator)
 // Algorithme :
 //
 {
@@ -80,7 +83,7 @@ LogLine::LogLine ( const LogLine & unLogLine ) :
 
 LogLine::LogLine ( ) : clientIP(""), userLogName(""),
     authenticatedUser(""), date(0,0,0,0,0,0,0), actionType(""), requestedURL(""),
-    httpVersion(""), status(0), bytesNumber(0), referer(""),
+    httpVersion(""), status(0), bytesNumber(0), domainName(""), sourceFile(""),
     navigator("")
 // Algorithme :
 //

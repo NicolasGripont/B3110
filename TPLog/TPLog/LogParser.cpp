@@ -26,7 +26,7 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Methodes publiques
-LogLine LogParser::Parser( string line )
+LogLine LogParser::Parser( string line, string domainName)
 // Algorithme :
 //
 {
@@ -83,14 +83,15 @@ LogLine LogParser::Parser( string line )
     separateur = '"';
     getline(iss,tmp,separateur);
     getline(iss,tmp,separateur);
-    logLine.referer = tmp;
+    logLine.domainName = domainName;
+    logLine.sourceFile = SplitReferer (tmp,  domainName);
 
     getline(iss,tmp,separateur);
     getline(iss,tmp,separateur);
     logLine.navigator = tmp;
 
     return logLine;
-} //----- Fin de Methode
+} //----- Fin de Parser
 
 
 
@@ -101,12 +102,13 @@ LogLine LogParser::Parser( string line )
 
 
 
-
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Methodes protegees
 
 Date LogParser::ParserDate ( string date )
+// Algorithme :
+//
 {
     int annee = 0;
     int mois = 0;
@@ -130,11 +132,13 @@ Date LogParser::ParserDate ( string date )
     }
 
     return Date(annee,mois,jour,heure,minute,seconde,gmt);
-}
+} //----- Fin de ParserDate
 
 
 
 int LogParser::Mois ( string mois )
+// Algorithme :
+//
 {
     int m = -1;
 
@@ -189,5 +193,30 @@ int LogParser::Mois ( string mois )
     }
 
     return m;
-}
+} //----- Fin de Mois
+
+
+string LogParser::SplitReferer (string referer, string domainName)
+// Algorithme :
+//
+{
+    string result;
+
+    string tmpRgx = "https?://";
+    tmpRgx += domainName;
+    tmpRgx += ("(.*)");
+
+    regex rgx(tmpRgx);
+    smatch match;
+
+    if (std::regex_search(referer, match, rgx))
+    {
+        result = match[1];
+    }
+    else
+    {
+        result = "-";
+    }
+    return result;
+} //----- Fin de SplitReferer
 

@@ -35,7 +35,7 @@ using namespace std;
 
 void defaut ( const string & nomFichierLog );
 void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichierGraphe );
-GraphDocuments* creerGraphe ( const string & fichierLog );
+GraphDocuments* creerGraphe ( const string & fichierLog, const string & serverAdress  );
 void defautAvecExclusion ( const string & nomFichierLog );
 void defautPourUneHeure ( const string & nomFichierLog, int heure );
 
@@ -112,7 +112,7 @@ int main (int argc, char* argv[])
 //    cout << "heure : " << heure << endl;
 //    cout << "exclusion : " << exclusion << endl;
 
-    GraphDocuments * graph = creerGraphe(nomFichierLog);
+    GraphDocuments * graph = creerGraphe(nomFichierLog,serverAdress);
 
     creerFichierGraphe(*graph, nomFichierGraph);
 
@@ -135,17 +135,17 @@ void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichie
     {
         fichier << "digraph {" << endl;
 
-        const vector<Document> documents = graph.Documents();
+        const vector<Document*> documents = graph.Documents();
 
-        for ( vector<Document>::const_iterator itv = documents.begin(); itv != documents.end(); itv++ )
+        for ( vector<Document*>::const_iterator itv = documents.begin(); itv != documents.end(); itv++ )
         {
-            fichier << itv->CheminAccesRessource() << ";" << endl;
-//            for ( map<Document*,NombreDeHits*>::const_iterator itm = itv->DocumentsAtteignables().begin(); itm != itv->DocumentsAtteignables().end(); itm++ )
-//            {
-//                fichier << itv->CheminAccesRessource() << " -> " <<
-//                      itm->first.CheminAccesRessource() << " [label=\"" <<
-//                      itm->second.NombreDeHitsTotal(true) << "\"];" << endl;
-//            }
+            fichier << (*itv)->CheminAccesRessource() << ";" << endl;
+            for ( map<Document*,NombreDeHits>::const_iterator itm = (*itv)->DocumentsAtteignables().begin(); itm != (*itv)->DocumentsAtteignables().end(); itm++ )
+            {
+                fichier << (*itv)->CheminAccesRessource() << " -> " <<
+                      itm->first->CheminAccesRessource() << " [label=\"" <<
+                      itm->second.NombreDeHitsTotal(true) << "\"];" << endl;
+            }
         }
 
         fichier << "}" << endl;
@@ -158,10 +158,10 @@ void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichie
 }
 
 
-GraphDocuments* creerGraphe ( const string & fichierLog )
+GraphDocuments* creerGraphe (const string & fichierLog , const string & serverAdress )
 {
-    GraphDocuments *graph = new GraphDocuments();
     cout<<"creerGraphe"<<endl;
+    GraphDocuments *graph = new GraphDocuments(serverAdress);
     ifstream fichier(fichierLog,ios::in);
     if(fichier)
     {

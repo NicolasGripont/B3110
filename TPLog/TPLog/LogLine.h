@@ -78,17 +78,17 @@ public:
                                 // requête.
 
     string userLogName;         // User Log Name, soit le nom
-                                // d?utilisateur du visiteur.
+                                // d utilisateur du visiteur.
 
-    string authenticatedUser;   // Nom d?utilisateur que l?internaute
-                                // s?est donne lui-même.
+    string authenticatedUser;   // Nom d utilisateur que l internaute
+                                // s est donne lui-même.
 
     Date date;                // Date et Heure de la requête avec GMT.
 
-    string actionType;          // Type d?action executee (GET, POST,
-                                // OPTIONS, ?).
+    string actionType;          // Type d action executee (GET, POST,
+                                // OPTIONS).
 
-    string requestedURL;        // URL demandee, relative à l?URL stockee
+    string requestedURL;        // URL demandee, relative à l URL stockee
                                 // dans referer.
 
     string httpVersion;         // Version du protocole HTTP.
@@ -98,9 +98,9 @@ public:
 
     int bytesNumber;         // Nombre d'octets de la reponse.
 
-    string referer;             // Adresse sur laquelle le navigateur se
-                                // trouvait lorsqu?il a effectue sa
-                                // requête.
+    string domainName;          // nom de domaine de la source
+
+    string sourceFile;       // nom du fichier de la source (d ou provient la requete)
 
     string navigator;           // Identification du client navigateur.
 

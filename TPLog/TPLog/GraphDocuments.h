@@ -24,7 +24,6 @@ using namespace std;
 //------------------------------------------------------------------ Types
 
 template class vector<Document*>;
-template class map<Document, NombreDeHits>;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <GraphDocuments>
@@ -46,15 +45,7 @@ public:
     // Contrat : ligne de log correctement ecrite.
 	//
 
-     const map<Document, NombreDeHits> & DocumentNombreDeHits() const;
-     // Mode d'emploi :
-     // Méthode retournant la map contenant les documents et leur nombre
-     // de hits associé
-     //
-     // Contrat : aucun.
-     //
-
-    const vector<Document> Documents() const;
+    const vector<Document*> & Documents() const;
     // Mode d'emploi :
     // Methode permettant de récupérer un vector contenant tous les documents du graph
     //
@@ -68,7 +59,6 @@ public:
     // Contrat :
     //
 
-
 	//-------------------------------------------- Constructeurs - destructeur
 	GraphDocuments(const GraphDocuments & unGraphDocuments);
 	// Mode d'emploi (constructeur de copie) :
@@ -76,7 +66,7 @@ public:
 	// Contrat :
 	//
 
-	GraphDocuments();
+    GraphDocuments( string nD );
     // Mode d'emploi : Constructeur.
 	//
     // Contrat : aucun.
@@ -93,9 +83,18 @@ public:
 protected:
 	//----------------------------------------------------- Méthodes protégées
 
+    Document * DocumentPresent(string nomDomaine, string chemineAccesFichier );
+    // Mode d'emploi :
+    //
+    //
+    // Contrat : aucun.
+    //
+
 	//----------------------------------------------------- Attributs protégés
 
-    map<Document,NombreDeHits> mapDocumentNombreDeHits;
+    vector<Document*> documents;
+
+    string nomDomaine;
 };
 
 //--------------------------- Autres définitions dépendantes de <GraphDocuments>

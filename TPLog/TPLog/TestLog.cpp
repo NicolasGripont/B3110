@@ -35,7 +35,7 @@ void test_LogParser_Parser()
         string line;
         while ( getline(fichier,line) )
         {
-            LogLine ll = LogParser::Parser(line);
+            LogLine ll = LogParser::Parser(line,"intranet-if.insa-lyon.fr");
             ll.Afficher();
             cout<<endl;
         }

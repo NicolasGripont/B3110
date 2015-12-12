@@ -30,10 +30,12 @@ class LogParser
 
 public:
 //----------------------------------------------------- Methodes publiques
-    static LogLine Parser ( string line );
+    static LogLine Parser (string line , string domainName);
 	// Mode d'emploi :
     // Methode permettant de creer un de type LogLine à partir d'une
-    // string contenant une ligne de log d'un fichier de log Apache.
+    // string contenant une ligne de log d'un fichier de log Apache et
+    // à partir du nom de domaine du serveur apache générant le fichier
+    // de logs.
 	//
 	// Contrat :
     // Il faut que la ligne donnée en paramètre soit
@@ -92,6 +94,14 @@ protected:
     //
 
     static int Mois ( string mois );
+    // Mode d'emploi :
+    //
+    //
+    // Contrat :
+    //
+    //
+
+    static string SplitReferer(string referer, string domainName);
     // Mode d'emploi :
     //
     //
