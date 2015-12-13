@@ -171,9 +171,8 @@ int main (int argc, char* argv[])
 void defaut ( GraphDocuments & graph , int n, bool uniquementReussis )
 {
     int i = 0;
-    graph.TrierParNombreDeHitsReussis();
-    const set<Document*, DocumentPtrComp> documents = graph.Documents();
-    set<Document*, DocumentPtrComp>::const_iterator itv = documents.begin();
+    const vector<Document*> documents = graph.TrierParNombreDeHitsReussis();
+	vector<Document*>::const_iterator itv = documents.begin();
 
     while ( itv != documents.end() && i < n )
     {
