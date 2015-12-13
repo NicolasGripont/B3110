@@ -155,7 +155,7 @@ int main (int argc, char* argv[])
 
 //    int somme = 0;
 
-//    for ( vector<Document*>::const_iterator itv = graph.Documents().begin(); itv != graph.Documents().end(); itv++ )
+//    for ( set<Document*, DocumentPtrComp>::const_iterator itv = graph.Documents().begin(); itv != graph.Documents().end(); itv++ )
 //    {
 //        somme += (*itv)->NbHits().NombreDeHitsTotal(false);
 //    }
@@ -169,8 +169,8 @@ void defaut ( GraphDocuments & graph , int n, bool uniquementReussis )
 {
     int i = 0;
     graph.TrierParNombreDeHitsReussis();
-    const vector<Document*> documents = graph.Documents();
-    vector<Document*>::const_iterator itv = documents.begin();
+    const set<Document*, DocumentPtrComp> documents = graph.Documents();
+    set<Document*, DocumentPtrComp>::const_iterator itv = documents.begin();
 
     while ( itv != documents.end() && i < n )
     {
@@ -190,11 +190,11 @@ void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichie
     {
         fichier << "digraph {" << endl;
 
-        const vector<Document*> documents = graph.Documents();
+        const set<Document*, DocumentPtrComp> documents = graph.Documents();
         int i = 0;
         map<Document*,int> positions;
 
-        for ( vector<Document*>::const_iterator itv = documents.begin(); itv != documents.end(); itv++ )
+        for ( set<Document*, DocumentPtrComp>::const_iterator itv = documents.begin(); itv != documents.end(); itv++ )
         {
             if ( (*itv)->NombreDeHitsAPartirDeCeDocument(uniquementReussis) > 0 || (*itv)->NbHits().NombreDeHitsTotal(uniquementReussis) > 0 )
             {
@@ -204,7 +204,7 @@ void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichie
             }
         }
 
-        for ( vector<Document*>::const_iterator itv = documents.begin(); itv != documents.end(); itv++ )
+        for ( set<Document*, DocumentPtrComp>::const_iterator itv = documents.begin(); itv != documents.end(); itv++ )
         {
             for ( map<Document*,NombreDeHits>::const_iterator itm = (*itv)->DocumentsAtteignables().begin(); itm != (*itv)->DocumentsAtteignables().end(); itm++ )
             {
