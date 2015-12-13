@@ -151,6 +151,17 @@ Document::Document(string nD, string cAR) : nomDomaine(nD),
 
 } //----- Fin de Document
 
+Document::Document() : nomDomaine(),
+cheminAccesRessource(), nbHits(), documentsAtteignables()
+// Algorithme :
+//
+{
+#ifdef MAP
+	cout << "Appel au constructeur de <Document>" << endl;
+#endif
+
+} //----- Fin de Document
+
 Document::~Document()
 // Algorithme :
 //

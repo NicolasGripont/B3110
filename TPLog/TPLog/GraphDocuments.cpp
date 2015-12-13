@@ -20,6 +20,7 @@ using namespace std;
 #include "LogParser.h"	
 #include <algorithm>
 #include "FoncteurDocument.h"
+#include <iterator>
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -51,11 +52,18 @@ void GraphDocuments::TraiterLogLine ( LogLine l )
 } //----- Fin de TraiterLogLine
 
 
-void GraphDocuments::TrierParNombreDeHitsReussis()
+vector<Document*> GraphDocuments::TrierParNombreDeHitsReussis()
 // Algorithme :
 //
 {
-    //sort(documents.begin(), documents.end(), Document::CompareParNombreDeHitsReussis);
+	vector<Document*> documentsTrie;
+	std::copy(documents.begin(), documents.end(), std::back_inserter(documentsTrie));
+	/*for (set<Document*, DocumentPtrComp>::iterator it = documents.begin(); it != documents.end(); it++)
+	{
+		documentsTrie.push_back(*it);
+	}*/
+	sort(documentsTrie.begin(), documentsTrie.end(), Document::CompareParNombreDeHitsReussis);
+	return documentsTrie;
 } //----- Fin de TrierParNombreDeHitsReussis
 
 const set<Document*, DocumentPtrComp> & GraphDocuments::Documents() const

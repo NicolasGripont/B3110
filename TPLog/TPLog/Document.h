@@ -125,6 +125,9 @@ public:
     // Contrat : aucun.
     //
 
+	Document();
+	// Utiliser pour trier on ne sait pas pourquoi
+
 	virtual ~Document();
     // Mode d'emploi : Destructeur.
 	//

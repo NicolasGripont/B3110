@@ -31,6 +31,7 @@ using namespace std;
 
 template class std::set<Document*, DocumentPtrComp>;
 template class std::vector<string>;
+template class vector<Document>;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <GraphDocuments>
@@ -53,7 +54,7 @@ public:
     // Contrat : aucun.
     //
 
-    void TrierParNombreDeHitsReussis ();
+    vector<Document*> TrierParNombreDeHitsReussis ();
     // Mode d'emploi :
     // Methode permettant de trier le vecteur en fonction du nombre de hits totals
     // reussis de maniere decroissante.
