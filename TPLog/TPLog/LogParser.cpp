@@ -260,7 +260,6 @@ string LogParser::SplitReferer ( string referer, string domainName )
     {
         result = "-";
     }
-    cout << result << endl;
 
     return result;
 } //----- Fin de SplitReferer

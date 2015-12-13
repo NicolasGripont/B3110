@@ -12,6 +12,7 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 
 //--------------------------------------------------- Interfaces utilisées
 #include <map>
+
 using namespace std;
 
 #include "NombreDeHits.h"
