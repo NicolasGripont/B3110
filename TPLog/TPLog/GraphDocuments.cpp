@@ -17,7 +17,8 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "GraphDocuments.h"
-#include "LogParser.h"
+#include "LogParser.h"	
+#include <algorithm>
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC

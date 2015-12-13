@@ -14,6 +14,7 @@ e-mail     : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 
 //------------------------------------------------------ Include personnel
 #include "LogLine.h"
+#include <string>
 
 //------------------------------------------------------------- Constantes
 
