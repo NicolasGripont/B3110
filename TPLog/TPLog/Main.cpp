@@ -49,7 +49,7 @@ int main (int argc, char* argv[])
     int heure = -1;
     bool exclusion = false;
 
-    cout << "argc = " << argc << endl;
+//    cout << "argc = " << argc << endl;
 
     if ( argc < 3 )
     {

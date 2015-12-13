@@ -23,8 +23,8 @@ using namespace std;
 
 //------------------------------------------------------------------ Types
 
-template class vector<Document*>;
-template class vector<string>;
+template class std::vector<Document*>;
+template class std::vector<string>;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <GraphDocuments>

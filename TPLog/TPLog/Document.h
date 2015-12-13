@@ -11,14 +11,16 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 #define Document_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include "NombreDeHits.h"
 #include <map>
+using namespace std;
+
+#include "NombreDeHits.h"
 #include "LogLine.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 class Document;
-template class map<Document*, NombreDeHits>;
+template class std::map<Document*, NombreDeHits>;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Document>
