@@ -149,7 +149,10 @@ int main (int argc, char* argv[])
 
     initialiserGraphe(graph,nomFichierLog,exclusion,heure);
 
-    creerFichierGraphe(graph, nomFichierGraph);
+    if ( nomFichierGraph != "")
+    {
+        creerFichierGraphe(graph, nomFichierGraph);
+    }
 
     defaut (graph, NB_DOC);
 
