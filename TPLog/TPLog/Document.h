@@ -24,7 +24,7 @@ template class std::map<Document*, NombreDeHits>;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Document>
-//
+// Classe permettant de définir un document d'un serveur.
 //
 //------------------------------------------------------------------------
 
@@ -96,8 +96,8 @@ public:
 	// Contrat : Aucun
 	//
 
-	bool operator < (const Document & unDocument) const;
-	// compare sur les attributs cheminAccesRessource (non utilisé)
+    bool operator < (const Document & unDocument) const;
+    // compare sur les attributs cheminAccesRessource (non utilisé)
 
 	bool operator == (const Document & unDocument) const;
 	// Mode d'emploi :
@@ -125,9 +125,9 @@ public:
     //
 
 	virtual ~Document();
-	// Mode d'emploi :
+    // Mode d'emploi : Destructeur.
 	//
-	// Contrat :
+    // Contrat : aucun.
 	//
 
 	//------------------------------------------------------------------ PRIVE
@@ -136,10 +136,20 @@ protected:
 	//----------------------------------------------------- Méthodes protégées
 
 	//----------------------------------------------------- Attributs protégés
-	string nomDomaine;
-	string cheminAccesRessource;
-	NombreDeHits nbHits;
-    map<Document*,NombreDeHits> documentsAtteignables;
+    string nomDomaine;                                 // nom de domaine du
+                                                       // serveur ou le fichier
+                                                       // se trouve.
+
+    string cheminAccesRessource;                       // chemin d'acces
+                                                       // a la ressource
+                                                       // de puis le serveur
+
+    NombreDeHits nbHits;                               // nombre de hits
+
+    map<Document*,NombreDeHits> documentsAtteignables; // map contenant les documents (key)
+                                                       // accessible depuis celui-ci
+                                                       // et le nombre de hits
+                                                       // a partir de ce document (valeur)
 
 };
 

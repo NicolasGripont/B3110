@@ -128,8 +128,9 @@ bool Document::operator>(const Document & unDocument) const
 
 //-------------------------------------------- Constructeurs - destructeur
 Document::Document(const Document & unDocument) : nomDomaine(unDocument.nomDomaine), 
-    cheminAccesRessource(unDocument.cheminAccesRessource), documentsAtteignables(unDocument.documentsAtteignables),
-	nbHits(unDocument.nbHits)
+    cheminAccesRessource(unDocument.cheminAccesRessource), nbHits(unDocument.nbHits),
+    documentsAtteignables(unDocument.documentsAtteignables)
+
 // Algorithme :
 //
 {

@@ -6,14 +6,16 @@ copyright            : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
 e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 *************************************************************************/
 
-#include "GraphDocuments.h"
-#include "LogParser.h"
-
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
+#include <string.h>
+
 using namespace std;
 
+#include "GraphDocuments.h"
+#include "LogParser.h"
 
 #ifdef TEST
 
@@ -29,13 +31,45 @@ int main()
 
 #else
 
-static const int NB_DOC = 10;
+static const int NB_DOC = 10; // nombre de document a afficher pour la commande par defaut
 
 void defaut (GraphDocuments & graph, int n , bool uniquementReussis = true );
+// Mode d'emploi :
+// Fonction permettant d'afficher les NB_DOC les plus consultes d'un GraphDocuments
+//
+// Contrat : aucun.
+//
+
 void creerFichierGraphe (const GraphDocuments & graph, const string & nomFichierGraphe , bool uniquementReussis = true );
+// Mode d'emploi :
+// Fonction permettant de creer un fichier a partir GraphViz d'un GraphDocuments
+//
+// Contrat : aucun.
+//
+
 void initialiserGraphe (GraphDocuments & graph, const string & fichierLog, bool exclusion, int heure );
+// Mode d'emploi :
+// Fonction permettant d'initialiser un Graphdocuments a partir
+// d'un fichier.
+//
+// Contrat : aucun.
+//
+
 bool exclure ( const LogLine & l , const vector<string> & v );
+// Mode d'emploi :
+// Fonction permettant d'analyser si le fichier consultr dans une ligne de log
+// et a exclure
+//
+// Contrat : aucun.
+//
+
 vector<string> extensionsExclus ( );
+// Mode d'emploi :
+// Fonction retournant un vecteur contenant les extensions des fichiers
+// a exclure.
+//
+// Contrat : aucun.
+//
 
 
 //faire une fonction man de ce programme si erreur commande
@@ -144,6 +178,7 @@ void defaut ( GraphDocuments & graph , int n, bool uniquementReussis )
 void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichierGraphe , bool uniquementReussis )
 {
     ofstream fichier(nomFichierGraphe,ios::out | ios::trunc);
+
     if(fichier)
     {
         fichier << "digraph {" << endl;
@@ -191,6 +226,7 @@ void initialiserGraphe (GraphDocuments & graph, const string & fichierLog, bool 
     if(fichier)
     {
         string logLine;
+
         while ( getline(fichier, logLine) )
         {
             LogLine l = LogParser::Parser(logLine,graph.NomDomaine());

@@ -66,9 +66,9 @@ public:
 
     static string Extension ( string cheminAcces );
     // Mode d'emploi :
+    // Methode de classe permettant de recuperer l'extension d'un fichier.
     //
-    //
-    // Contrat :
+    // Contrat : aucun.
     //
     //
 
@@ -98,23 +98,26 @@ protected:
     // string contenant le champs date d'une ligne de log d'un
     // fichier de log Apache.
     //
-    // Contrat :
+    // Contrat : aucun.
     //
     //
 
     static int Mois ( string mois );
     // Mode d'emploi :
+    // Methode permettant de convertir un mois anglais
+    // (sur 3 lettres, ex :Sep) en int
     //
-    //
-    // Contrat :
+    // Contrat : aucun.
     //
     //
 
     static string SplitReferer ( string referer, string domainName );
     // Mode d'emploi :
+    // Methode permettant de recuperer le fichier d'une url contenant
+    // le nom de domaine donne en parametre. Retourne "-" si l'url
+    // (referer) ne contient pas le nom de domain.
     //
-    //
-    // Contrat :
+    // Contrat : aucun.
     //
     //
 

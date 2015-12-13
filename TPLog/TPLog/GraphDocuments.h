@@ -28,7 +28,8 @@ template class std::vector<string>;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <GraphDocuments>
-//
+// Classe permettant de definir un graph de documents pourun serveur
+// (nom de domaine)
 //
 //------------------------------------------------------------------------
 
@@ -69,15 +70,16 @@ public:
 	//------------------------------------------------- Surcharge d'opérateurs
     GraphDocuments & operator = (const GraphDocuments & unGraphDocuments);
     // Mode d'emploi :
+    // Redefinition de l'operateur =
     //
-    // Contrat :
+    // Contrat : aucun.
     //
 
 	//-------------------------------------------- Constructeurs - destructeur
 	GraphDocuments(const GraphDocuments & unGraphDocuments);
-	// Mode d'emploi (constructeur de copie) :
+    // Mode d'emploi : constructeur de copie
 	//
-	// Contrat :
+    // Contrat : aucun.
 	//
 
     GraphDocuments( string nD );
@@ -87,9 +89,9 @@ public:
 	//
 
 	virtual ~GraphDocuments();
-	// Mode d'emploi :
+    // Mode d'emploi : destructeur.
 	//
-	// Contrat :
+    // Contrat : aucun.
 	//
 
 	//------------------------------------------------------------------ PRIVE
@@ -97,9 +99,11 @@ public:
 protected:
 	//----------------------------------------------------- Méthodes protégées
 
-    Document * DocumentPresent(string nomDomaine, string chemineAccesFichier );
+    Document * DocumentPresent(string nomDomaine, string cheminAccesFichier );
     // Mode d'emploi :
-    //
+    // Methode permettant de definir si un document ayant pour nom de domaine
+    // nomDomaine et commen chemin d'acces cheminAccesFichier est deja present
+    // dans le vector documents.
     //
     // Contrat : aucun.
     //
@@ -108,9 +112,10 @@ protected:
 
 	//----------------------------------------------------- Attributs protégés
 
-    vector<Document*> documents;
+    vector<Document*> documents;  // vecter contenant les documents du graph
 
-    string nomDomaine;
+    string nomDomaine;            // nom de domaine du serveur correspondant
+                                  // au graph.
 };
 
 //--------------------------- Autres définitions dépendantes de <GraphDocuments>

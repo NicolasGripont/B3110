@@ -18,7 +18,7 @@ e-mail     : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 
 //------------------------------------------------------------------------
 // Role de la structure <Date>
-// Classe permertant de créer un objet de type date
+// Structure permertant de créer un objet de type date
 //
 //------------------------------------------------------------------------
 
@@ -28,13 +28,6 @@ struct Date
 
 public:
 //----------------------------------------------------- Methodes publiques
-
-	// type Methode ( liste de parametres );
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
-
 
 
 //------------------------------------------------- Surcharge d'operateurs
@@ -54,7 +47,7 @@ public:
 
 //-------------------------------------------- Constructeurs - destructeur
     Date ( const Date & uneDate );
-    // Mode d'emploi : constructeur de copie
+    // Mode d'emploi : Constructeur de copie
     //
     // Contrat : aucun.
     //

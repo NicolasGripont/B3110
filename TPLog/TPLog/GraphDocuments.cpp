@@ -129,10 +129,10 @@ GraphDocuments::~GraphDocuments()
 
   //----------------------------------------------------- Méthodes protégées
 
-Document* GraphDocuments::DocumentPresent(string nomDomaine, string chemineAccesFichier )
+Document* GraphDocuments::DocumentPresent(string nomDomaine, string cheminAccesFichier )
 {
     Document *document = nullptr;
-    Document tmp(nomDomaine,chemineAccesFichier);
+    Document tmp(nomDomaine,cheminAccesFichier);
     for ( vector<Document*>::iterator it = documents.begin(); it != documents.end(); it++ )
     {
         if ( *(*it) == tmp )
