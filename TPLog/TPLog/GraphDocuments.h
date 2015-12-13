@@ -44,18 +44,20 @@ public:
     // Methode permettant de traiter une ligne de log.
     // Ajoute et/ou met a jour les documents en fonction de la ligne de log.
 	//
-    // Contrat : ligne de log correctement ecrite.
+    // Contrat : aucun.
     //
 
     void TrierParNombreDeHitsReussis ();
     // Mode d'emploi :
+    // Methode permettant de trier le vecteur en fonction du nombre de hits totals
+    // reussis de maniere decroissante.
     //
-    // Contrat :
+    // Contrat : aucun.
     //
 
     const vector<Document*> & Documents() const;
     // Mode d'emploi :
-    // Methode permettant de récupérer un vector contenant tous les documents du graph
+    // Accesseur en lecture sur l?attribut document.
     //
     // Contrat : aucun.
     //

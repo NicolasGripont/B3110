@@ -153,6 +153,13 @@ int main (int argc, char* argv[])
 
     defaut (graph, NB_DOC);
 
+//    int somme = 0;
+
+//    for ( vector<Document*>::const_iterator itv = graph.Documents().begin(); itv != graph.Documents().end(); itv++ )
+//    {
+//        somme += (*itv)->NbHits().NombreDeHitsTotal(false);
+//    }
+//    cout << somme << endl;
 
 	return 0;
 }

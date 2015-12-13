@@ -64,13 +64,13 @@ int NombreDeHits::NombreDeHitsTotal(bool UniquementReussi) const
 	return s;
 }
 
-void NombreDeHits::MAJHits ( bool status, int heure )
+void NombreDeHits::MAJHits (bool statut, int heure )
 // Algorithme :
 //
 {
     if ( heure > 0 && heure < NB_HEURE_PAR_JOUR )
     {
-        if (status)
+        if (statut)
         {
             nombreDeHitsReussisParHeure[heure]++;
         }
