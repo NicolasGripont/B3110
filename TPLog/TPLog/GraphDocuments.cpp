@@ -47,7 +47,6 @@ void GraphDocuments::TraiterLogLine ( LogLine l )
     documentDemande->MAJHits(l.status,l.date.heure);
 
     documentSource->MAJDocAtteignable(l.status,l.date.heure,documentDemande);
-
 } //----- Fin de TraiterLogLine
 
 

@@ -68,7 +68,7 @@ void NombreDeHits::MAJHits (bool statut, int heure )
 // Algorithme :
 //
 {
-    if ( heure > 0 && heure < NB_HEURE_PAR_JOUR )
+    if ( heure >= 0 && heure < NB_HEURE_PAR_JOUR )
     {
         if (statut)
         {

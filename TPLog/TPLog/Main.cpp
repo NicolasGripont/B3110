@@ -153,13 +153,13 @@ int main (int argc, char* argv[])
 
     defaut (graph, NB_DOC);
 
-//    int somme = 0;
+    int somme = 0;
 
-//    for ( vector<Document*>::const_iterator itv = graph.Documents().begin(); itv != graph.Documents().end(); itv++ )
-//    {
-//        somme += (*itv)->NbHits().NombreDeHitsTotal(false);
-//    }
-//    cout << somme << endl;
+    for ( vector<Document*>::const_iterator itv = graph.Documents().begin(); itv != graph.Documents().end(); itv++ )
+    {
+        somme += (*itv)->NbHits().NombreDeHitsTotal(false);
+    }
+    cout << somme << endl;
 
 	return 0;
 }
@@ -237,22 +237,22 @@ void initialiserGraphe (GraphDocuments & graph, const string & fichierLog, bool 
         while ( getline(fichier, logLine) )
         {
             LogLine l = LogParser::Parser(logLine,graph.NomDomaine());
-            if ( !exclusion && heure == -1 )
-            {
+//            if ( !exclusion && heure == -1 )
+//            {
                 graph.TraiterLogLine(l);
-            }
-            else if ( !exclusion && l.date.heure == heure  )
-            {
-                graph.TraiterLogLine(l);
-            }
-            else if ( exclusion && !exclure(l,v) && heure == -1 )
-            {
-                graph.TraiterLogLine(l);
-            }
-            else if ( exclusion && !exclure(l,v) && l.date.heure == heure )
-            {
-                graph.TraiterLogLine(l);
-            }
+//            }
+//            else if ( !exclusion && l.date.heure == heure  )
+//            {
+//                graph.TraiterLogLine(l);
+//            }
+//            else if ( exclusion && !exclure(l,v) && heure == -1 )
+//            {
+//                graph.TraiterLogLine(l);
+//            }
+//            else if ( exclusion && !exclure(l,v) && l.date.heure == heure )
+//            {
+//                graph.TraiterLogLine(l);
+//            }
         }
         fichier.close();
     }
