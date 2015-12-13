@@ -250,6 +250,18 @@ string LogParser::SplitReferer ( string referer, string domainName )
     {
         result = "-";
     }
+
+//    string tmp = referer.substr(0,domainName.length());
+
+//    if ( tmp == domainName)
+//    {
+//        result = referer.substr(0,domainName.length());
+//    }
+//    else
+//    {
+//        result = "-";
+//    }
+
     return result;
 } //----- Fin de SplitReferer
 
