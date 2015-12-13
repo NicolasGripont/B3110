@@ -235,32 +235,31 @@ string LogParser::SplitReferer ( string referer, string domainName )
 //    match[2]= nomDomaine
 //    match[3]=cheminAcces
 
-    string tmpRgx = "https?://";
-    tmpRgx += domainName;
-    tmpRgx += ("(.*)");
+//    string tmpRgx = "https?://";
+//    tmpRgx += domainName;
+//    tmpRgx += ("(.*)");
 
-    regex rgx(tmpRgx);
-    smatch match;
+//    regex rgx(tmpRgx);
+//    smatch match;
 
-    if (regex_search(referer, match, rgx))
-    {
-        result = match[1];
-    }
-    else
-    {
-        result = "-";
-    }
-
-//    string tmp = referer.substr(0,domainName.length());
-
-//    if ( tmp == domainName)
+//    if (regex_search(referer, match, rgx))
 //    {
-//        result = referer.substr(0,domainName.length());
+//        result = match[1];
 //    }
 //    else
 //    {
 //        result = "-";
 //    }
+
+    string tmp = referer.substr(0,domainName.length());
+    if ( tmp == domainName)
+    {
+        result = referer.substr(domainName.length(),referer.length());
+    }
+    else
+    {
+        result = "-";
+    }
 
     return result;
 } //----- Fin de SplitReferer

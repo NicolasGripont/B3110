@@ -32,7 +32,7 @@ using namespace std;
 int NombreDeHits::NombreDeHitsPourUneHeure(int uneHeure, bool UniquementReussi)
 {
     int result;
-	if (uneHeure >= NB_HEURE_PAR_JOUR)
+    if ( uneHeure >= NB_HEURE_PAR_JOUR || uneHeure < 0 )
 	{
         result =  -1;
 	}
