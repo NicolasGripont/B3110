@@ -31,7 +31,7 @@ int main()
 
 static const int NB_DOC = 10;
 
-void defaut ( GraphDocuments & graph, int n );
+void defaut (GraphDocuments & graph, int n , bool uniquementReussis = true );
 void creerFichierGraphe (const GraphDocuments & graph, const string & nomFichierGraphe , bool uniquementReussis = true );
 void initialiserGraphe (GraphDocuments & graph, const string & fichierLog, bool exclusion, int heure );
 bool exclure ( const LogLine & l , const vector<string> & v );
@@ -124,7 +124,7 @@ int main (int argc, char* argv[])
 }
 
 
-void defaut ( GraphDocuments & graph , int n)
+void defaut ( GraphDocuments & graph , int n, bool uniquementReussis )
 {
     int i = 0;
     graph.TrierParNombreDeHitsReussis();
@@ -133,7 +133,9 @@ void defaut ( GraphDocuments & graph , int n)
 
     while ( itv != documents.end() && i < n )
     {
-        cout << (*itv)->CheminAccesRessource() << " : " << (*itv)->NbHits().NombreDeHitsTotal() <<endl;
+        cout << (*itv)->CheminAccesRessource() << " ("
+             << (*itv)->NbHits().NombreDeHitsTotal(uniquementReussis) <<
+                " hits)" << endl;
         itv++;
         i++;
     }
@@ -152,7 +154,7 @@ void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichie
 
         for ( vector<Document*>::const_iterator itv = documents.begin(); itv != documents.end(); itv++ )
         {
-            if ( (*itv)->NombreDeHitsAPartirDeCeDocument(uniquementReussis) > 0 )
+            if ( (*itv)->NombreDeHitsAPartirDeCeDocument(uniquementReussis) > 0 || (*itv)->NbHits().NombreDeHitsTotal(uniquementReussis) > 0 )
             {
                 fichier << "node" << i << "[label=\"" << (*itv)->CheminAccesRessource() << "\"];" << endl;
                 positions.insert(make_pair((*itv),i));
@@ -168,7 +170,7 @@ void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichie
                 {
                     fichier << "node" << positions[(*itv)] << " -> " <<
                           "node" << positions[itm->first] << " [label=\"" <<
-                          itm->second.NombreDeHitsTotal(true) << "\"];" << endl;
+                          itm->second.NombreDeHitsTotal(uniquementReussis) << "\"];" << endl;
                 }
             }
         }
@@ -232,7 +234,10 @@ bool exclure ( const LogLine & l , const vector<string> & v )
     return false;
 } //----- Fin de Exclure
 
-vector<string> extensionsExclus ( ){
+vector<string> extensionsExclus ( )
+// Algorithme :
+//
+{
     vector<string> v;
     v.push_back(".css");
     v.push_back(".jpg");
@@ -243,7 +248,7 @@ vector<string> extensionsExclus ( ){
     v.push_back(".ico");
     v.push_back(".js");
     return v;
-}
+} //----- Fin de extensionsExclus
 
 
 #endif

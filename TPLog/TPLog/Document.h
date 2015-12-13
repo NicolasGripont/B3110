@@ -68,6 +68,17 @@ public:
     // Contrat : Aucun.
     //
 
+    const map<Document*,NombreDeHits> & DocumentsAtteignables() const;
+    // Mode d'emploi :
+    // Retourne l'attribut documentsAtteignable
+    //
+    // Contrat : Aucun.
+
+    const NombreDeHits & NbHits() const;
+    // Mode d'emploi :
+    // Accesseur en lecture sur le nombre de Hits;
+    //
+    // Contrat : Aucun.
 
     const string & CheminAccesRessource() const;
 	// Mode d'emploi :
@@ -82,18 +93,6 @@ public:
 	//
 	// Contrat : Aucun
 	//
-
-    const map<Document*,NombreDeHits> & DocumentsAtteignables() const;
-	// Mode d'emploi :
-	// Retourne l'attribut documentsAtteignable
-	//
-	// Contrat : Aucun.
-
-    const NombreDeHits & NbHits() const;
-    // Mode d'emploi :
-    // Accesseur en lecture sur le nombre de Hits;
-    //
-    // Contrat : Aucun.
 
 	bool operator < (const Document & unDocument) const;
 	// compare sur les attributs cheminAccesRessource (non utilisé)

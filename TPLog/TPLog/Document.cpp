@@ -116,7 +116,7 @@ bool Document::operator==(const Document & unDocument) const
 //Algorithme :
 //
 {
-	return cheminAccesRessource == unDocument.cheminAccesRessource && nomDomaine == unDocument.nomDomaine;
+    return cheminAccesRessource == unDocument.cheminAccesRessource;// && nomDomaine == unDocument.nomDomaine;
 } //----- Fin de operator==
 
 bool Document::operator>(const Document & unDocument) const
