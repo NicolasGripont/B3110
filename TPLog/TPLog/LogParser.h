@@ -32,7 +32,7 @@ public:
 //----------------------------------------------------- Methodes publiques
     static LogLine Parser (string line , string domainName);
 	// Mode d'emploi :
-    // Methode permettant de creer un de type LogLine à partir d'une
+    // Methode permettant de creer un  objet de type LogLine à partir d'une
     // string contenant une ligne de log d'un fichier de log Apache et
     // à partir du nom de domaine du serveur apache générant le fichier
     // de logs.
@@ -43,6 +43,13 @@ public:
 	//
 
 
+    static string Extension ( string cheminAcces );
+    // Mode d'emploi :
+    // Methode de classe permettant de recuperer l'extension d'un fichier
+    // a partir d?une string contenant son chemin d?acces.
+    // Contrat : aucun.
+    //
+    //
 
 //------------------------------------------------- Surcharge d'operateurs
     LogParser & operator = ( const LogParser & unLogParser );
@@ -62,15 +69,6 @@ public:
     // Contrat :
     // Aucun.
 	//
-
-
-    static string Extension ( string cheminAcces );
-    // Mode d'emploi :
-    // Methode de classe permettant de recuperer l'extension d'un fichier.
-    //
-    // Contrat : aucun.
-    //
-    //
 
     LogParser ( );
 	// Mode d'emploi :
@@ -94,7 +92,7 @@ protected:
 
     static Date ParserDate ( string date );
     // Mode d'emploi :
-    // Methode permettant de creer un de type Date à partir d'une
+    // Methode permettant de creer un objet de type Date à partir d'une
     // string contenant le champs date d'une ligne de log d'un
     // fichier de log Apache.
     //
