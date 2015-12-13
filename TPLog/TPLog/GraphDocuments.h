@@ -6,6 +6,9 @@ copyright            : (C) 2015 par Quentin SCHROTER, Nicolas GRIPONT
 e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon.fr
 *************************************************************************/
 
+
+
+
 //---------- Interface de la classe <GraphDocuments> (fichier GraphDocuments.h) ------
 #if ! defined ( GraphDocuments_H )
 #define GraphDocuments_H
@@ -13,17 +16,20 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 //--------------------------------------------------- Interfaces utilisées
 
 #include <vector>
+#include <set>
 
 using namespace std;
 
-
 #include "Document.h"
+#include "FoncteurDocument.h"
+
+
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
-template class std::vector<Document*>;
+template class std::set<Document*, DocumentPtrComp>;
 template class std::vector<string>;
 
 //------------------------------------------------------------------------
@@ -55,7 +61,7 @@ public:
     // Contrat : aucun.
     //
 
-    const vector<Document*> & Documents() const;
+    const set<Document*, DocumentPtrComp> & Documents() const;
     // Mode d'emploi :
     // Accesseur en lecture sur l?attribut document.
     //
@@ -114,7 +120,7 @@ protected:
 
 	//----------------------------------------------------- Attributs protégés
 
-    vector<Document*> documents;  // vecter contenant les documents du graph
+    set<Document*, DocumentPtrComp> documents;  // vecter contenant les documents du graph
 
     string nomDomaine;            // nom de domaine du serveur correspondant
                                   // au graph.
@@ -123,5 +129,6 @@ protected:
 //--------------------------- Autres définitions dépendantes de <GraphDocuments>
 
 #endif // GraphDocuments_H
+
 
 

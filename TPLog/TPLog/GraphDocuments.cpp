@@ -19,6 +19,7 @@ using namespace std;
 #include "GraphDocuments.h"
 #include "LogParser.h"	
 #include <algorithm>
+#include "FoncteurDocument.h"
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -37,12 +38,12 @@ void GraphDocuments::TraiterLogLine ( LogLine l )
     if ( documentSource == nullptr )
     {
         documentSource = new Document(l.domainName,l.sourceFile);
-        documents.push_back(documentSource);
+        documents.insert(documentSource);
     }
     if ( documentDemande == nullptr )
     {
         documentDemande = new Document(l.domainName,l.requestedURL);
-        documents.push_back(documentDemande);
+        documents.insert(documentDemande);
     }
     documentDemande->MAJHits(l.status,l.date.heure);
 
@@ -54,10 +55,10 @@ void GraphDocuments::TrierParNombreDeHitsReussis()
 // Algorithme :
 //
 {
-    sort(documents.begin(), documents.end(), Document::CompareParNombreDeHitsReussis);
+    //sort(documents.begin(), documents.end(), Document::CompareParNombreDeHitsReussis);
 } //----- Fin de TrierParNombreDeHitsReussis
 
-const vector<Document*> & GraphDocuments::Documents() const
+const set<Document*, DocumentPtrComp> & GraphDocuments::Documents() const
 // Algorithme :
 //
 {
@@ -90,10 +91,10 @@ GraphDocuments::GraphDocuments(const GraphDocuments & unGraphDocuments) :
 #ifdef MAP
     cout << "Appel au constructeur de copie de <GraphDocuments>" << endl;
 #endif
-    for ( vector<Document*>::const_iterator it = unGraphDocuments.documents.begin(); it != unGraphDocuments.documents.end(); it++ )
+    for ( set<Document*, DocumentPtrComp>::const_iterator it = unGraphDocuments.documents.begin(); it != unGraphDocuments.documents.end(); it++ )
     {
         Document *tmp = new Document(*(*it));
-        documents.push_back(tmp);
+        documents.insert(tmp);
     }
 } //----- Fin de GraphDocuments (constructeur de copie)
 
@@ -117,7 +118,7 @@ GraphDocuments::~GraphDocuments()
 #ifdef MAP
 	cout << "Appel au destructeur de <GraphDocuments>" << endl;
 #endif
-    for ( vector<Document*>::iterator it = documents.begin(); it != documents.end(); it++ )
+    for ( set<Document*, DocumentPtrComp>::iterator it = documents.begin(); it != documents.end(); it++ )
     {
         delete *it;
     }
@@ -132,7 +133,7 @@ Document* GraphDocuments::DocumentPresent(string nomDomaine, string cheminAccesF
 {
     Document *document = nullptr;
     Document tmp(nomDomaine,cheminAccesFichier);
-    for ( vector<Document*>::iterator it = documents.begin(); it != documents.end(); it++ )
+    for ( set<Document*, DocumentPtrComp>::iterator it = documents.begin(); it != documents.end(); it++ )
     {
         if ( *(*it) == tmp )
         {
