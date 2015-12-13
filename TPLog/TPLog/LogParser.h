@@ -63,6 +63,15 @@ public:
     // Aucun.
 	//
 
+
+    static string Extension ( string cheminAcces );
+    // Mode d'emploi :
+    //
+    //
+    // Contrat :
+    //
+    //
+
     LogParser ( );
 	// Mode d'emploi :
     // Constructeur par defaut interdit.
@@ -102,14 +111,6 @@ protected:
     //
 
     static string SplitReferer ( string referer, string domainName );
-    // Mode d'emploi :
-    //
-    //
-    // Contrat :
-    //
-    //
-
-    string Extension ( string cheminAcces );
     // Mode d'emploi :
     //
     //

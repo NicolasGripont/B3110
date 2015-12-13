@@ -57,8 +57,17 @@ public:
     // Mode d'emploi :
 	// Met à jour les documents atteignables depuis ce document.
 	//
-	// Contrat : Aucun (ptet qu'il ne soit pas déjà dans les docs ateignables)
+    // Contrat : Aucun.
 	//
+
+    int NombreDeHitsAPartirDeCeDocument ( bool uniquementReussis = true );
+    // Mode d'emploi :
+    // Méthode permettant de recuperer le nombre de hits reussi (uniquementReussis = true)
+    // ou le nombre totals de hits provenant de ce document.
+    //
+    // Contrat : Aucun.
+    //
+
 
     const string & CheminAccesRessource() const;
 	// Mode d'emploi :

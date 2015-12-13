@@ -13,7 +13,7 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes
-const int NB_HEURE_PAR_JOUR = 24;
+
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
@@ -22,10 +22,10 @@ const int NB_HEURE_PAR_JOUR = 24;
 //
 //------------------------------------------------------------------------
 
-struct NombreDeHits 
+class NombreDeHits
 {
-	//----------------------------------------------------------------- PUBLIC
-
+//----------------------------------------------------------------- PUBLIC
+public:
 	//----------------------------------------------------- Méthodes publiques
 	int NombreDeHitsPourUneHeure ( int uneHeure, bool UniquementReussi = true );
 	// Mode d'emploi :
@@ -42,6 +42,14 @@ struct NombreDeHits
 	// Contrat :
 	//
 
+    void MAJHits ( bool status, int heure );
+    // Mode d'emploi :
+    // Méthode permettant d'incrémenter le nombre de hits en fonction d'un
+    // status (reussi : true, echec : false) et d'une heure.
+    // Ne fait rien si heure < 0 et heure >= 24
+    //
+    // Contrat : aucun.
+    //
 
 	//-------------------------------------------- Constructeurs - destructeur
 	NombreDeHits(const NombreDeHits & unNombreDeHits);
@@ -62,7 +70,15 @@ struct NombreDeHits
 	// Contrat :
 	//
 
+    //------------------------------------------------------------------ PRIVE
 
+protected:
+    //----------------------------------------------------- Méthodes protégées
+
+
+    //----------------------------------------------------- Attributs protégés
+
+    static const int NB_HEURE_PAR_JOUR = 24;
 	int nombreDeHitsReussisParHeure[NB_HEURE_PAR_JOUR];
 	int nombreDeHitsEchouesParHeure[NB_HEURE_PAR_JOUR];
 

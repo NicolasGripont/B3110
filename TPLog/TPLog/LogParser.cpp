@@ -59,6 +59,10 @@ LogLine LogParser::Parser( string line, string domainName)
     logLine.actionType = tmp;
 
     getline(iss,tmp,separateur);
+    if ( tmp[tmp.length()-1] == '/' && tmp.length() > 1 )
+    {
+        tmp = tmp.substr(0,tmp.length()-1);
+    }
     logLine.requestedURL = tmp;
 
     separateur = '"';
@@ -84,7 +88,12 @@ LogLine LogParser::Parser( string line, string domainName)
     getline(iss,tmp,separateur);
     getline(iss,tmp,separateur);
     logLine.domainName = domainName;
-    logLine.sourceFile = SplitReferer (tmp,  domainName);
+    tmp = SplitReferer (tmp,  domainName);
+    if ( tmp[tmp.length()-1] == '/' && tmp.length() > 1 )
+    {
+        tmp = tmp.substr(0,tmp.length()-1);
+    }
+    logLine.sourceFile = tmp;
 
     getline(iss,tmp,separateur);
     getline(iss,tmp,separateur);
@@ -92,6 +101,27 @@ LogLine LogParser::Parser( string line, string domainName)
 
     return logLine;
 } //----- Fin de Parser
+
+
+string LogParser::Extension ( string cheminAcces )
+{
+    string s = "";
+    int i = cheminAcces.length() - 1;
+    while (i > 0 && cheminAcces[i] != '.')
+    {
+        s += cheminAcces[i];
+        i--;
+    }
+    s += '.';
+    reverse(s.begin(), s.end());
+
+    if ( s == cheminAcces )
+    {
+        s = "";
+    }
+
+    return s;
+}
 
 //------------------------------------------------- Surcharge d'operateurs
 
@@ -223,23 +253,4 @@ string LogParser::SplitReferer ( string referer, string domainName )
     return result;
 } //----- Fin de SplitReferer
 
-string LogParser::Extension ( string cheminAcces )
-{
-    string s = "";
-    int i = cheminAcces.length() - 1;
-    while (i > 0 && cheminAcces[i] != '.')
-    {
-        s += cheminAcces[i];
-        i--;
-    }
-    s += '.';
-    reverse(s.begin(), s.end());
-
-    if ( s == cheminAcces )
-    {
-        s = "";
-    }
-
-    return s;
-}
 

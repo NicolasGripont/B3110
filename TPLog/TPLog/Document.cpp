@@ -27,25 +27,20 @@ void Document::MAJHits ( int status, int heure )
 //Algorithme :
 //
 {
-    if (status/100 == 2)
-	{
-		nbHits.nombreDeHitsReussisParHeure[heure]++;
-	}
-	else
-	{
-		nbHits.nombreDeHitsEchouesParHeure[heure]++;
-	}
-} //----- Fin de MAJ
+    nbHits.MAJHits(status/100 == 2,heure);
+} //----- Fin de MAJHits
 
 bool Document::CompareParNombreDeHitsReussis(Document* a, Document* b)
 //Algorithme :
 //
 {
     return a->nbHits.NombreDeHitsTotal() > b->nbHits.NombreDeHitsTotal();
-} //----- Fin de MAJ
+} //----- Fin de CompareParNombreDeHitsReussis
 
 
 void Document::MAJDocAtteignable(int status, int heure, Document* unDoc)
+//Algorithme :
+//
 {
     NombreDeHits unNombreDeHits;
 
@@ -55,44 +50,47 @@ void Document::MAJDocAtteignable(int status, int heure, Document* unDoc)
 
     if ( it != documentsAtteignables.end())
     {
-        if (status / 100 == 2)
-        {
-         it->second.nombreDeHitsReussisParHeure[heure]++;
-        }
-        else
-        {
-         it->second.nombreDeHitsEchouesParHeure[heure]++;
-        }
+        it->second.MAJHits(status/100 == 2,heure);
     }
     else
     {
-        if (status / 100 == 2)
-        {
-         unNombreDeHits.nombreDeHitsReussisParHeure[heure]++;
-        }
-        else
-        {
-         unNombreDeHits.nombreDeHitsEchouesParHeure[heure]++;
-        }
+        unNombreDeHits.MAJHits(status/100 == 2,heure);
         documentsAtteignables.insert(make_pair(unDoc, unNombreDeHits));
     }
-}
+} //----- Fin de MAJDocAtteignable
 
+int Document::NombreDeHitsAPartirDeCeDocument ( bool uniquementReussis )
+//Algorithme :
+//
+{
+    int somme = 0;
+    for ( map<Document*,NombreDeHits>::const_iterator it = documentsAtteignables.begin(); it != documentsAtteignables.end(); it++ )
+    {
+        somme += it->second.NombreDeHitsTotal(uniquementReussis);
+    }
+    return somme;
+} //----- Fin de NombreDeHitsAPartirDeCeDocument
 
 const string & Document::CheminAccesRessource() const
+//Algorithme :
+//
 {
     return cheminAccesRessource;
-}
+} //----- Fin de CheminAccesRessource
 
 const map<Document*,NombreDeHits> & Document::DocumentsAtteignables() const
+//Algorithme :
+//
 {
     return documentsAtteignables;
-}
+} //----- Fin de DocumentsAtteignables
 
 const NombreDeHits & Document::NbHits() const
+//Algorithme :
+//
 {
     return nbHits;
-}
+} //----- Fin de NbHits
 
  //------------------------------------------------- Surcharge d'opérateurs
 Document & Document::operator = (const Document & unDocument)
@@ -108,19 +106,25 @@ Document & Document::operator = (const Document & unDocument)
 
 
 bool Document::operator<(const Document & unDocument) const
+//Algorithme :
+//
 {
 	return cheminAccesRessource < unDocument.cheminAccesRessource;
-}
+} //----- Fin de operator<
 
 bool Document::operator==(const Document & unDocument) const
+//Algorithme :
+//
 {
 	return cheminAccesRessource == unDocument.cheminAccesRessource && nomDomaine == unDocument.nomDomaine;
-}
+} //----- Fin de operator==
 
 bool Document::operator>(const Document & unDocument) const
+//Algorithme :
+//
 {
 	return cheminAccesRessource > unDocument.cheminAccesRessource;
-}
+} //----- Fin de operator>
 
 //-------------------------------------------- Constructeurs - destructeur
 Document::Document(const Document & unDocument) : nomDomaine(unDocument.nomDomaine), 

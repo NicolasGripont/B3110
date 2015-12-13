@@ -24,6 +24,7 @@ using namespace std;
 //------------------------------------------------------------------ Types
 
 template class vector<Document*>;
+template class vector<string>;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <GraphDocuments>
@@ -37,8 +38,8 @@ class GraphDocuments
 
 public:
 	//----------------------------------------------------- Méthodes publiques
-     void TraiterLogLine ( const string & logLine );
-	// Mode d'emploi :
+    void TraiterLogLine ( LogLine l );
+    // Mode d'emploi :
     // Methode permettant de traiter une ligne de log.
     // Ajoute et/ou met a jour les documents en fonction de la ligne de log.
 	//
@@ -54,6 +55,13 @@ public:
     const vector<Document*> & Documents() const;
     // Mode d'emploi :
     // Methode permettant de récupérer un vector contenant tous les documents du graph
+    //
+    // Contrat : aucun.
+    //
+
+    const string & NomDomaine() const;
+    // Mode d'emploi :
+    // Accesseur en lecture seule sur le nom de domaine.
     //
     // Contrat : aucun.
     //
@@ -95,6 +103,8 @@ protected:
     //
     // Contrat : aucun.
     //
+
+
 
 	//----------------------------------------------------- Attributs protégés
 

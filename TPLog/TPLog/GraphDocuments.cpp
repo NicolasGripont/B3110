@@ -24,12 +24,13 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void GraphDocuments::TraiterLogLine (const string & logLine )
+
+
+
+void GraphDocuments::TraiterLogLine ( LogLine l )
 // Algorithme :
 //
 {
-    LogLine l = LogParser::Parser(logLine,nomDomaine);
-
     Document * documentSource = DocumentPresent(l.domainName,l.sourceFile);
     Document * documentDemande = DocumentPresent(l.domainName,l.requestedURL);
     if ( documentSource == nullptr )
@@ -48,10 +49,13 @@ void GraphDocuments::TraiterLogLine (const string & logLine )
 
 } //----- Fin de TraiterLogLine
 
+
 void GraphDocuments::TrierParNombreDeHitsReussis()
+// Algorithme :
+//
 {
     sort(documents.begin(), documents.end(), Document::CompareParNombreDeHitsReussis);
-}
+} //----- Fin de TrierParNombreDeHitsReussis
 
 const vector<Document*> & GraphDocuments::Documents() const
 // Algorithme :
@@ -60,6 +64,13 @@ const vector<Document*> & GraphDocuments::Documents() const
     return documents;
 } //----- Fin de Documents
 
+
+const string & GraphDocuments::NomDomaine() const
+// Algorithme :
+//
+{
+    return nomDomaine;
+} //----- Fin de NomDomaine
 //------------------------------------------------- Surcharge d'opérateurs
 
 //GraphDocuments & GraphDocuments::operator = (const GraphDocuments & unGraphDocuments)
@@ -130,8 +141,4 @@ Document* GraphDocuments::DocumentPresent(string nomDomaine, string chemineAcces
     }
     return document;
 }
-
-
-
-
 

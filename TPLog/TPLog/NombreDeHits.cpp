@@ -64,6 +64,23 @@ int NombreDeHits::NombreDeHitsTotal(bool UniquementReussi) const
 	return s;
 }
 
+void NombreDeHits::MAJHits ( bool status, int heure )
+// Algorithme :
+//
+{
+    if ( heure > 0 && heure < NB_HEURE_PAR_JOUR )
+    {
+        if (status)
+        {
+            nombreDeHitsReussisParHeure[heure]++;
+        }
+        else
+        {
+            nombreDeHitsEchouesParHeure[heure]++;
+        }
+    }
+} //----- Fin de MAJHits
+
 //------------------------------------------------- Surcharge d'opérateurs
 NombreDeHits & NombreDeHits::operator = (const NombreDeHits & unNombreDeHits)
 // Algorithme :

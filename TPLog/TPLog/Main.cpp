@@ -7,7 +7,6 @@ e-mail               : quentin.schroter@insa-lyon.fr , nicolas.gripont@insa-lyon
 *************************************************************************/
 
 #include "GraphDocuments.h"
-#include "NombreDeHits.h"
 #include "LogParser.h"
 
 #include <string>
@@ -30,13 +29,14 @@ int main()
 
 #else
 
-const int NB_DOC = 10;
+static const int NB_DOC = 10;
 
 void defaut ( GraphDocuments & graph, int n );
-void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichierGraphe );
-void initialiserGraphe (GraphDocuments & graph, const string & fichierLog);
-void defautAvecExclusion ( const string & nomFichierLog );
-void defautPourUneHeure ( const string & nomFichierLog, int heure );
+void creerFichierGraphe (const GraphDocuments & graph, const string & nomFichierGraphe , bool uniquementReussis = true );
+void initialiserGraphe (GraphDocuments & graph, const string & fichierLog, bool exclusion, int heure );
+bool exclure ( const LogLine & l , const vector<string> & v );
+vector<string> extensionsExclus ( );
+
 
 //faire une fonction man de ce programme si erreur commande
 
@@ -113,7 +113,7 @@ int main (int argc, char* argv[])
 
     GraphDocuments graph(serverAdress);
 
-    initialiserGraphe(graph,nomFichierLog);
+    initialiserGraphe(graph,nomFichierLog,exclusion,heure);
 
     creerFichierGraphe(graph, nomFichierGraph);
 
@@ -139,7 +139,7 @@ void defaut ( GraphDocuments & graph , int n)
     }
 }
 
-void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichierGraphe )
+void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichierGraphe , bool uniquementReussis )
 {
     ofstream fichier(nomFichierGraphe,ios::out | ios::trunc);
     if(fichier)
@@ -150,17 +150,21 @@ void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichie
         int i = 0;
         map<Document*,int> positions;
 
-        for ( vector<Document*>::const_iterator itv = documents.begin(); itv != documents.end(); itv++, i++)
+        for ( vector<Document*>::const_iterator itv = documents.begin(); itv != documents.end(); itv++ )
         {
-            fichier << "node" << i << "[label=\"" << (*itv)->CheminAccesRessource() << "\"];" << endl;
-            positions.insert(make_pair((*itv),i));
+            if ( (*itv)->NombreDeHitsAPartirDeCeDocument(uniquementReussis) > 0 )
+            {
+                fichier << "node" << i << "[label=\"" << (*itv)->CheminAccesRessource() << "\"];" << endl;
+                positions.insert(make_pair((*itv),i));
+                i++;
+            }
         }
 
         for ( vector<Document*>::const_iterator itv = documents.begin(); itv != documents.end(); itv++ )
         {
             for ( map<Document*,NombreDeHits>::const_iterator itm = (*itv)->DocumentsAtteignables().begin(); itm != (*itv)->DocumentsAtteignables().end(); itm++ )
             {
-                if ( itm->second.NombreDeHitsTotal(true) > 0 )
+                if ( itm->second.NombreDeHitsTotal(uniquementReussis) > 0 )
                 {
                     fichier << "node" << positions[(*itv)] << " -> " <<
                           "node" << positions[itm->first] << " [label=\"" <<
@@ -178,15 +182,32 @@ void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichie
 }
 
 
-void initialiserGraphe (GraphDocuments & graph, const string & fichierLog)
+void initialiserGraphe (GraphDocuments & graph, const string & fichierLog, bool exclusion, int heure )
 {
     ifstream fichier(fichierLog,ios::in);
+    vector<string> v = extensionsExclus();
     if(fichier)
     {
         string logLine;
         while ( getline(fichier, logLine) )
         {
-            graph.TraiterLogLine(logLine);
+            LogLine l = LogParser::Parser(logLine,graph.NomDomaine());
+            if ( !exclusion && heure == -1 )
+            {
+                graph.TraiterLogLine(l);
+            }
+            else if ( !exclusion && l.date.heure == heure  )
+            {
+                graph.TraiterLogLine(l);
+            }
+            else if ( exclusion && !exclure(l,v) && heure == -1 )
+            {
+                graph.TraiterLogLine(l);
+            }
+            else if ( exclusion && !exclure(l,v) && l.date.heure == heure )
+            {
+                graph.TraiterLogLine(l);
+            }
         }
         fichier.close();
     }
@@ -196,12 +217,33 @@ void initialiserGraphe (GraphDocuments & graph, const string & fichierLog)
     }
 }
 
-void defautAvecExclusion ( const string & nomFichierLog )
+bool exclure ( const LogLine & l , const vector<string> & v )
+// Algorithme :
+//
 {
+    string extension = LogParser::Extension(l.requestedURL);
+    for ( vector<string>::const_iterator it = v.begin(); it != v.end(); it++ )
+    {
+        if ( *it == extension )
+        {
+            return true;
+        }
+    }
+    return false;
+} //----- Fin de Exclure
+
+vector<string> extensionsExclus ( ){
+    vector<string> v;
+    v.push_back(".css");
+    v.push_back(".jpg");
+    v.push_back(".jpeg");
+    v.push_back(".jpe");
+    v.push_back(".gif");
+    v.push_back(".png");
+    v.push_back(".ico");
+    v.push_back(".js");
+    return v;
 }
 
-void defautPourUneHeure ( const string & nomFichierLog, int heure )
-{
-}
 
 #endif
