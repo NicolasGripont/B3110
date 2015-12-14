@@ -149,10 +149,13 @@ protected:
     NombreDeHits nbHits;                               // nombre de hits
 
     map<string,pair<Document*, NombreDeHits>> documentsAtteignables;
-                                                       // map contenant les documents (key)
-                                                       // accessible depuis celui-ci
-                                                       // et le nombre de hits
-                                                       // a partir de ce document (valeur)
+                                                       // Map contenant les paires
+                                                       // documents accessible depuis
+                                                       // celui-ci et le nombre de
+                                                       // hits à partir de ce document
+                                                       // (valeur) et le chemin d?accès
+                                                       // au document atteignable
+                                                       // (clé) de type string.
 
 };
 
