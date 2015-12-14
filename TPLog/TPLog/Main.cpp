@@ -158,7 +158,8 @@ int main (int argc, char* argv[])
 
 //    int somme = 0;
 
-//    for ( vector<Document*>::const_iterator itv = graph.Documents().begin(); itv != graph.Documents().end(); itv++ )
+//    vector<Document*> v = graph.Documents();
+//    for ( vector<Document*>::const_iterator itv = v.begin(); itv != v.end(); itv++ )
 //    {
 //        somme += (*itv)->NbHits().NombreDeHitsTotal(false);
 //    }
@@ -209,13 +210,13 @@ void creerFichierGraphe ( const GraphDocuments & graph, const string & nomFichie
 
         for ( vector<Document*>::const_iterator itv = documents.begin(); itv != documents.end(); itv++ )
         {
-            for ( map<Document*,NombreDeHits>::const_iterator itm = (*itv)->DocumentsAtteignables().begin(); itm != (*itv)->DocumentsAtteignables().end(); itm++ )
+            for ( map<string,pair<Document*, NombreDeHits>>::const_iterator itm = (*itv)->DocumentsAtteignables().begin(); itm != (*itv)->DocumentsAtteignables().end(); itm++ )
             {
-                if ( itm->second.NombreDeHitsTotal(uniquementReussis) > 0 )
+                if ( itm->second.second.NombreDeHitsTotal(uniquementReussis) > 0 )
                 {
                     fichier << "node" << positions[(*itv)] << " -> " <<
-                          "node" << positions[itm->first] << " [label=\"" <<
-                          itm->second.NombreDeHitsTotal(uniquementReussis) << "\"];" << endl;
+                          "node" << positions[itm->second.first] << " [label=\"" <<
+                          itm->second.second.NombreDeHitsTotal(uniquementReussis) << "\"];" << endl;
                 }
             }
         }

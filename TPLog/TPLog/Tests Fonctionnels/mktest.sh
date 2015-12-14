@@ -4,7 +4,7 @@ nKo=0
 nTotal=0
 nMis=0
 
-for i in Test*
+for i in TestO*
 do
   ./test.sh $i results.csv
   result=$?
@@ -20,8 +20,8 @@ do
   let "nTotal=$nTotal+1"
 done
 
-echo "Passed tests     : $nOk"
-echo "Failed tests     : $nKo"
-echo "Misformed tests  : $nMis"
-echo "-----------------------"
-echo "Total            : $nTotal"
+echo "Passed tests     : $nOk">>results.csv
+echo "Failed tests     : $nKo">>results.csv
+echo "Misformed tests  : $nMis">>results.csv
+echo "-----------------------">>results.csv
+echo "Total            : $nTotal">>results.csv

@@ -21,7 +21,8 @@ using namespace std;
 
 //------------------------------------------------------------------ Types
 class Document;
-template class std::map<Document*, NombreDeHits>;
+template struct std::pair<Document*, NombreDeHits>;
+template class std::map<string,pair<Document*, NombreDeHits>>;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Document>
@@ -71,7 +72,7 @@ public:
     // Contrat : Aucun.
     //
 
-    const map<Document*,NombreDeHits> & DocumentsAtteignables() const;
+    const map<string,pair<Document*, NombreDeHits>> & DocumentsAtteignables() const;
     // Mode d'emploi :
     // Retourne l'attribut documentsAtteignable
     //
@@ -147,7 +148,8 @@ protected:
 
     NombreDeHits nbHits;                               // nombre de hits
 
-    map<Document*,NombreDeHits> documentsAtteignables; // map contenant les documents (key)
+    map<string,pair<Document*, NombreDeHits>> documentsAtteignables;
+                                                       // map contenant les documents (key)
                                                        // accessible depuis celui-ci
                                                        // et le nombre de hits
                                                        // a partir de ce document (valeur)

@@ -44,18 +44,18 @@ void Document::MAJDocAtteignable(int status, int heure, Document* unDoc)
 {
     NombreDeHits unNombreDeHits;
 
-    map<Document*, NombreDeHits>::iterator it = documentsAtteignables.begin();
+    map<string,pair<Document*, NombreDeHits>>::iterator it = documentsAtteignables.begin();
 
-    it = documentsAtteignables.find(unDoc);
+    it = documentsAtteignables.find(unDoc->CheminAccesRessource());
 
     if ( it != documentsAtteignables.end())
     {
-        it->second.MAJHits(status/100 == 2,heure);
+        it->second.second.MAJHits(status/100 == 2,heure);
     }
     else
     {
         unNombreDeHits.MAJHits(status/100 == 2,heure);
-        documentsAtteignables.insert(make_pair(unDoc, unNombreDeHits));
+        documentsAtteignables.insert(make_pair(unDoc->CheminAccesRessource(),make_pair(unDoc, unNombreDeHits)));
     }
 } //----- Fin de MAJDocAtteignable
 
@@ -64,9 +64,9 @@ int Document::NombreDeHitsAPartirDeCeDocument ( bool uniquementReussis )
 //
 {
     int somme = 0;
-    for ( map<Document*,NombreDeHits>::const_iterator it = documentsAtteignables.begin(); it != documentsAtteignables.end(); it++ )
+    for ( map<string,pair<Document*, NombreDeHits>>::const_iterator it = documentsAtteignables.begin(); it != documentsAtteignables.end(); it++ )
     {
-        somme += it->second.NombreDeHitsTotal(uniquementReussis);
+        somme += it->second.second.NombreDeHitsTotal(uniquementReussis);
     }
     return somme;
 } //----- Fin de NombreDeHitsAPartirDeCeDocument
@@ -78,7 +78,7 @@ const string & Document::CheminAccesRessource() const
     return cheminAccesRessource;
 } //----- Fin de CheminAccesRessource
 
-const map<Document*,NombreDeHits> & Document::DocumentsAtteignables() const
+const map<string,pair<Document*, NombreDeHits>> & Document::DocumentsAtteignables() const
 //Algorithme :
 //
 {
@@ -93,16 +93,16 @@ const NombreDeHits & Document::NbHits() const
 } //----- Fin de NbHits
 
  //------------------------------------------------- Surcharge d'opérateurs
-Document & Document::operator = (const Document & unDocument)
-// Algorithme :
-//
-{
-	nomDomaine = unDocument.nomDomaine;
-	cheminAccesRessource = unDocument.cheminAccesRessource;
-    documentsAtteignables = unDocument.documentsAtteignables;
-	nbHits = NombreDeHits(unDocument.nbHits);
-	return *this;
-} //----- Fin de operator =
+//Document & Document::operator = (const Document & unDocument)
+//// Algorithme :
+////
+//{
+//	nomDomaine = unDocument.nomDomaine;
+//	cheminAccesRessource = unDocument.cheminAccesRessource;
+//    documentsAtteignables = unDocument.documentsAtteignables;
+//	nbHits = NombreDeHits(unDocument.nbHits);
+//	return *this;
+//} //----- Fin de operator =
 
 
 bool Document::operator<(const Document & unDocument) const
