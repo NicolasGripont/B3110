@@ -57,12 +57,12 @@ vector<Document*> GraphDocuments::TrierParNombreDeHitsReussis()
 //
 {
 	vector<Document*> documentsTrie;
-	std::copy(documents.begin(), documents.end(), std::back_inserter(documentsTrie));
-	/*for (set<Document*, DocumentPtrComp>::iterator it = documents.begin(); it != documents.end(); it++)
-	{
-		documentsTrie.push_back(*it);
-	}*/
-	sort(documentsTrie.begin(), documentsTrie.end(), Document::CompareParNombreDeHitsReussis);
+    std::copy(documents.begin(), documents.end(), std::back_inserter(documentsTrie));
+//    for (set<Document*, DocumentPtrComp>::iterator it = documents.begin(); it != documents.end(); it++)
+//    {
+//        documentsTrie.push_back(*it);
+//    }
+    sort(documentsTrie.begin(), documentsTrie.end(), Document::CompareParNombreDeHitsReussis);
 	return documentsTrie;
 } //----- Fin de TrierParNombreDeHitsReussis
 

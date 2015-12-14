@@ -31,7 +31,7 @@ using namespace std;
 
 template class std::set<Document*, DocumentPtrComp>;
 template class std::vector<string>;
-template class vector<Document>;
+template class std::vector<Document*>;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <GraphDocuments>

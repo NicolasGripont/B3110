@@ -156,13 +156,14 @@ int main (int argc, char* argv[])
 
     defaut (graph, NB_DOC);
 
-//    int somme = 0;
+    int somme = 0;
 
-//    for ( set<Document*, DocumentPtrComp>::const_iterator itv = graph.Documents().begin(); itv != graph.Documents().end(); itv++ )
-//    {
-//        somme += (*itv)->NbHits().NombreDeHitsTotal(false);
-//    }
-//    cout << somme << endl;
+    vector<Document*> v = graph.TrierParNombreDeHitsReussis();
+    for ( vector<Document*>::const_iterator itv = v.begin(); itv != v.end(); itv++ )
+    {
+        somme += (*itv)->NbHits().NombreDeHitsTotal(false);
+    }
+    cout << somme << endl;
 
 	return 0;
 }
